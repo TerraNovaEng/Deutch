@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="de" translate="no">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -242,7 +242,7 @@
                 steps: [
                     { prompt: "Person A: Hast du schon Pläne für die Sommerferien?", options: ["Ja, ich möchte dieses Jahr nach Österreich reisen.", "Ich komme aus Albanien.", "Zwei Euro fünfzig."], correct: 0 },
                     { prompt: "Person B: Fährst du mit dem Zug oder nimmst du das Auto?", options: ["Wir nehmen den Zug, das ist umweltfreundlicher.", "Auf Wiedersehen.", "Gern geschehen."], correct: 0 },
-                    { prompt: "Person A: Habt ihr schon ein Hotel oder eine Pension gebucht?", options: ["Ja, eine kleine Hütte in den Bergen.", "Ihre heiße Anna.", "Tschüss."], correct: 0 },
+                    { prompt: "Person A: Habt ihr schon ein Hotel oder eine Pension gebucht?", options: ["Ja, eine kleine Hütte in den Bergen.", "Ich heiße Anna.", "Tschüss."], correct: 0 },
                     { prompt: "Person A: Das stimmt absolut. Viel Spaß beim Packen!", options: ["Danke dir, wir sehen uns nach dem Urlaub!", "Hallo!", "Wie bitte?"], correct: 0 }
                 ]
             },
@@ -360,7 +360,6 @@
             optionsArea.innerHTML = '';
 
             let workingList = [...currentDialogue.sentences];
-            // Shuffle initially so it's out of order
             workingList.sort(() => Math.random() - 0.5);
 
             const listContainer = document.createElement('div');
