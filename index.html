@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deutsch Dialog App (A1-A2)</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="manifest" href="manifest.json">
+</head>
+<body>
+    <header>
+        <h1>🇩🇪 Deutsch Dialoge</h1>
+        <div id="score-board">Punkte: <span id="score">0</span></div>
+    </header>
+
+    <main>
+        <section id="menu-screen" class="screen active">
+            <h2>Wähle ein Modul (A1 - A2)</h2>
+            <div id="dialogue-list"></div>
+        </section>
+
+        <section id="exercise-screen" class="screen">
+            <button id="back-btn">← Zurück</button>
+            <h3 id="dialogue-title"></h3>
+            <div id="game-container">
+                <div id="prompt-area"></div>
+                <div id="options-area" class="options-grid"></div>
+            </div>
+            <div id="feedback" class="hidden"></div>
+        </section>
+    </main>
+
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
+</body>
+</html>

@@ -1,0 +1,78 @@
+/* css/style.css */
+:root {
+    --primary: #2c3e50;
+    --accent: #27ae60;
+    --bg: #f4f7f6;
+    --card-bg: #ffffff;
+}
+
+body {
+    font-family: system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    margin: 0;
+    padding: 0;
+    color: var(--primary);
+}
+
+header {
+    background: var(--primary);
+    color: white;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+main {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.screen { display: none; }
+.screen.active { display: block; }
+
+.dialogue-card {
+    background: var(--card-bg);
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.dialogue-card:hover { transform: translateY(-2px); }
+
+.options-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+}
+
+.option-btn {
+    background: white;
+    border: 2px solid var(--primary);
+    padding: 0.75rem 1rem;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    text-align: left;
+    transition: background 0.2s;
+}
+
+.option-btn:hover { background: #e2e8f0; }
+.option-btn.correct { background: #27ae60; color: white; border-color: #27ae60; }
+.option-btn.wrong { background: #c0392b; color: white; border-color: #c0392b; }
+
+#feedback {
+    margin-top: 1rem;
+    padding: 1rem;
+    border-radius: 6px;
+    font-weight: bold;
+    text-align: center;
+}
+#feedback.success { background: #d4edda; color: #155724; }
+#feedback.error { background: #f8d7da; color: #721c24; }
+.hidden { display: none; }

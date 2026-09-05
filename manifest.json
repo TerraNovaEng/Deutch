@@ -1,0 +1,10 @@
+/* manifest.json */
+{
+  "name": "Deutsch Dialog App inspire by FraunHaus",
+  "short_name": "DeutschApp",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#f4f7f6",
+  "theme_color": "#2c3e50",
+  "icons": []
+}
