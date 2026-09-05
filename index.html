@@ -60,7 +60,7 @@
             gap: 0.75rem;
             margin-top: 1.5rem;
         }
-        .option-btn {
+        .option-btn, .order-item {
             background: white;
             border: 2px solid var(--primary);
             padding: 0.75rem 1rem;
@@ -69,10 +69,25 @@
             cursor: pointer;
             text-align: left;
             transition: background 0.2s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
-        .option-btn:hover { background: #e2e8f0; }
+        .option-btn:hover, .order-item:hover { background: #e2e8f0; }
         .option-btn.correct { background: #27ae60; color: white; border-color: #27ae60; }
         .option-btn.wrong { background: #c0392b; color: white; border-color: #c0392b; }
+        
+        .order-controls button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.3rem 0.6rem;
+            margin-left: 0.3rem;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .order-controls button:hover { background: var(--accent); }
+
         #feedback {
             margin-top: 1rem;
             padding: 1rem;
@@ -91,6 +106,17 @@
             border-radius: 4px;
             cursor: pointer;
             margin-bottom: 1rem;
+        }
+        #submit-order-btn {
+            margin-top: 1rem;
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -216,7 +242,7 @@
                 steps: [
                     { prompt: "Person A: Hast du schon Pläne für die Sommerferien?", options: ["Ja, ich möchte dieses Jahr nach Österreich reisen.", "Ich komme aus Albanien.", "Zwei Euro fünfzig."], correct: 0 },
                     { prompt: "Person B: Fährst du mit dem Zug oder nimmst du das Auto?", options: ["Wir nehmen den Zug, das ist umweltfreundlicher.", "Auf Wiedersehen.", "Gern geschehen."], correct: 0 },
-                    { prompt: "Person A: Habt ihr schon ein Hotel oder eine Pension gebucht?", options: ["Ja, eine kleine Hütte in den Bergen.", "Ich heiße Anna.", "Tschüss."], correct: 0 },
+                    { prompt: "Person A: Habt ihr schon ein Hotel oder eine Pension gebucht?", options: ["Ja, eine kleine Hütte in den Bergen.", "Ihre heiße Anna.", "Tschüss."], correct: 0 },
                     { prompt: "Person A: Das stimmt absolut. Viel Spaß beim Packen!", options: ["Danke dir, wir sehen uns nach dem Urlaub!", "Hallo!", "Wie bitte?"], correct: 0 }
                 ]
             },
@@ -227,7 +253,7 @@
                 steps: [
                     { prompt: "Anrufer: Guten Tag, mein Name ist Wagner. Spreche ich mit Herrn Bauer?", options: ["Guten Tag Herr Wagner, nein, er ist im Meeting.", "Ich heiße Anna.", "Mir geht es gut."], correct: 0 },
                     { prompt: "Anrufer: Wann kann ich ihn denn am besten erreichen?", options: ["Versuchen Sie es am besten morgen früh ab neun Uhr.", "Auf Wiederhören!", "Tschüss!"], correct: 0 },
-                    { prompt: "Anrufer: Soll ich ihm eine kurze Nachricht hinterlassen?", options: ["Ja gerne,richten Sie ihm bitte aus, dass ich zurückgerufen habe.", "Auf Wiedersehen.", "Nein."], correct: 0 },
+                    { prompt: "Anrufer: Soll ich ihm eine kurze Nachricht hinterlassen?", options: ["Ja gerne, richten Sie ihm bitte aus, dass ich zurückgerufen habe.", "Auf Wiedersehen.", "Nein."], correct: 0 },
                     { prompt: "Anrufer: Alles klar, ich rufe morgen wieder an. Auf Wiederhören.", options: ["Wiederhören, schönen Tag noch!", "Danke.", "Hallo!"], correct: 0 }
                 ]
             }
@@ -330,54 +356,66 @@
 
         function loadOrderExercise() {
             feedback.className = 'hidden';
-            promptArea.innerHTML = `<p><strong>Bringe die Sätze in die richtige Reihenfolge (klicke nacheinander):</strong></p>`;
+            promptArea.innerHTML = `<p><strong>Bringe die Sätze in die richtige Reihenfolge (nutze die Pfeile):</strong></p>`;
             optionsArea.innerHTML = '';
 
-            const correctOrder = [...currentDialogue.sentences];
-            let shuffledSentences = [...currentDialogue.sentences];
-            shuffledSentences.sort(() => Math.random() - 0.5);
+            let workingList = [...currentDialogue.sentences];
+            // Shuffle initially so it's out of order
+            workingList.sort(() => Math.random() - 0.5);
 
-            let userSelection = [];
+            const listContainer = document.createElement('div');
+            listContainer.style.display = "flex";
+            listContainer.style.flexDirection = "column";
+            listContainer.style.gap = "0.5rem";
 
-            const selectedContainer = document.createElement('div');
-            selectedContainer.style.marginBottom = "1rem";
-            selectedContainer.style.padding = "0.75rem";
-            selectedContainer.style.background = "#fff";
-            selectedContainer.style.borderRadius = "6px";
-            selectedContainer.style.border = "1px dashed #2c3e50";
-            selectedContainer.innerHTML = "<strong>Deine Reihenfolge:</strong> <span id='selected-list' style='color:#666;'>Noch nichts ausgewählt</span>";
-            optionsArea.appendChild(selectedContainer);
-
-            const poolContainer = document.createElement('div');
-            poolContainer.className = "options-grid";
-            optionsArea.appendChild(poolContainer);
-
-            shuffledSentences.forEach(sentence => {
-                const btn = document.createElement('button');
-                btn.className = 'option-btn';
-                btn.textContent = sentence;
-                btn.addEventListener('click', () => {
-                    userSelection.push(sentence);
-                    btn.style.display = 'none';
-                    
-                    const listSpan = document.getElementById('selected-list');
-                    listSpan.innerHTML = "<br>• " + userSelection.join("<br>• ");
-
-                    if (userSelection.length === correctOrder.length) {
-                        let isMatch = userSelection.every((val, idx) => val === correctOrder[idx]);
-                        if (isMatch) {
-                            feedback.textContent = "🎉 Richtig! Perfekte Reihenfolge.";
-                            feedback.className = "success";
-                            score += 20;
-                            scoreDisplay.textContent = score;
-                        } else {
-                            feedback.textContent = "❌ Leider nicht ganz richtig. Geh zurück und versuche es erneut.";
-                            feedback.className = "error";
-                        }
-                    }
+            function renderListItems() {
+                listContainer.innerHTML = '';
+                workingList.forEach((sentence, index) => {
+                    const item = document.createElement('div');
+                    item.className = 'order-item';
+                    item.innerHTML = `
+                        <span>${index + 1}. ${sentence}</span>
+                        <div class="order-controls">
+                            <button onclick="moveItem(${index}, -1)">▲</button>
+                            <button onclick="moveItem(${index}, 1)">▼</button>
+                        </div>
+                    `;
+                    listContainer.appendChild(item);
                 });
-                poolContainer.appendChild(btn);
+            }
+
+            window.moveItem = function(index, direction) {
+                const newIndex = index + direction;
+                if (newIndex >= 0 && newIndex < workingList.length) {
+                    const temp = workingList[index];
+                    workingList[index] = workingList[newIndex];
+                    workingList[newIndex] = temp;
+                    renderListItems();
+                }
+            };
+
+            renderListItems();
+            optionsArea.appendChild(listContainer);
+
+            const submitBtn = document.createElement('button');
+            submitBtn.id = 'submit-order-btn';
+            submitBtn.textContent = 'Reihenfolge prüfen';
+            submitBtn.addEventListener('click', () => {
+                const correctOrder = currentDialogue.sentences;
+                let isMatch = workingList.every((val, idx) => val === correctOrder[idx]);
+                
+                if (isMatch) {
+                    feedback.textContent = "🎉 Richtig! Perfekte Reihenfolge.";
+                    feedback.className = "success";
+                    score += 20;
+                    scoreDisplay.textContent = score;
+                    submitBtn.disabled = true;
+                } else {
+                    feedback.textContent = "❌ Noch nicht ganz richtig. Versuche es weiter mit den Pfeilen!";
+                    feedback.className = "error";
+                }
             });
+            optionsArea.appendChild(submitBtn);
         }
 
         function goHome() {
