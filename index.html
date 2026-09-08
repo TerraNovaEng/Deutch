@@ -3,33 +3,552 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Deutsch Dialoge & Lernen</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>Deutsch Lernportal (A1-A2)</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --accent: #27ae60;
+            --bg: #f4f7f6;
+            --card-bg: #ffffff;
+        }
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background: var(--bg);
+            margin: 0;
+            padding: 0;
+            color: var(--primary);
+        }
+        header {
+            background: var(--primary);
+            color: white;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        main {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        .screen { display: none; }
+        .screen.active { display: block; }
+        #dialogue-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        .dialogue-card {
+            background: var(--card-bg);
+            padding: 1.25rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            border-left: 4px solid var(--accent);
+        }
+        .dialogue-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+        .dialogue-card h3 { margin: 0 0 0.5rem 0; font-size: 1.1rem; }
+        .dialogue-card p { margin: 0; color: #666; font-size: 0.9rem; }
+        .options-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+        }
+        .option-btn, .order-item {
+            background: white;
+            border: 2px solid var(--primary);
+            padding: 0.75rem 1rem;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+            text-align: left;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .option-btn:hover, .order-item:hover { background: #e2e8f0; }
+        .option-btn.correct { background: #27ae60; color: white; border-color: #27ae60; }
+        .option-btn.wrong { background: #c0392b; color: white; border-color: #c0392b; }
+        
+        .order-controls button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.3rem 0.6rem;
+            margin-left: 0.3rem;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        #feedback {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 6px;
+            font-weight: bold;
+            text-align: center;
+        }
+        #feedback.success { background: #d4edda; color: #155724; }
+        #feedback.error { background: #f8d7da; color: #721c24; }
+        .hidden { display: none; }
+        #back-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 1rem;
+        }
+        #submit-order-btn, .action-btn {
+            margin-top: 1rem;
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        table { width: 100%; border-collapse: collapse; background: white; margin-top: 1rem; border-radius: 6px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        th, td { padding: 0.75rem 1rem; border-bottom: 1px solid #e2e8f0; text-align: left; }
+        th { background: var(--primary); color: white; }
+    </style>
 </head>
 <body>
     <header>
         <h1>🇩🇪 Deutsch Lernportal</h1>
+        <div id="score-board">Punkte: <span id="score">0</span></div>
     </header>
+
     <main>
-        <h2>Hauptmenü</h2>
-        <div class="card-grid">
-            <a href="index.html" class="menu-card">
-                <h3>Dialog-Module (A1-A2)</h3>
-                <p>Wählen Sie aus verschiedenen Alltagsdialogen.</p>
-            </a>
-            <a href="modules/ordering.html" class="menu-card">
-                <h3>Modul 7: Sätze Ordnen</h3>
-                <p>Bringen Sie die Dialogsätze in die logische Reihenfolge.</p>
-            </a>
-            <a href="modules/puzzle.html" class="menu-card">
-                <h3>Puzzle-Übung: Gefühle & Zustände</h3>
-                <p>Ordnen Sie Smileys den passenden Ausdrücken zu.</p>
-            </a>
-            <a href="verbs/conjugations.html" class="menu-card">
-                <h3>Verben-Konjugation</h3>
-                <p>Lernen Sie sein, haben, kommen, sehen und mehr.</p>
-            </a>
-        </div>
+        <!-- MAIN MENU SCREEN -->
+        <section id="menu-screen" class="screen active">
+            <h2>Hauptmenü</h2>
+            <div id="dialogue-list">
+                <div class="dialogue-card" onclick="openModuleSection()">
+                    <h3>Dialog-Module (A1-A10)</h3>
+                    <p>Wählen Sie aus 10 anspruchsvollen Alltagsdialogen.</p>
+                </div>
+                <div class="dialogue-card" onclick="openSpecialModule(7)">
+                    <h3>Sätze Ordnen</h3>
+                    <p>Bringen Sie die Dialogsätze in die logische Reihenfolge.</p>
+                </div>
+                <div class="dialogue-card" onclick="openPuzzleScreen()">
+                    <h3>Puzzle-Übung: Gefühle & Zustände</h3>
+                    <p>Ordnen Sie Smileys den passenden Ausdrücken zu.</p>
+                </div>
+                <div class="dialogue-card" onclick="openVerbsScreen()">
+                    <h3>Verben-Konjugation</h3>
+                    <p>Lernen Sie sein, haben, kommen, sehen und mehr.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- DIALOGUE SELECTION SCREEN -->
+        <section id="dialogue-menu-screen" class="screen">
+            <button class="back-btn" onclick="goHome()">← Zurück zum Hauptmenü</button>
+            <h2>Wähle ein Dialog-Modul (A1 - A2)</h2>
+            <div id="sub-dialogue-list" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-top: 1.5rem;"></div>
+        </section>
+
+        <!-- EXERCISE RUNNER SCREEN -->
+        <section id="exercise-screen" class="screen">
+            <button class="back-btn" onclick="openModuleSection()">← Zurück zur Modul-Übersicht</button>
+            <h3 id="dialogue-title"></h3>
+            <div id="game-container">
+                <div id="prompt-area"></div>
+                <div id="options-area" class="options-grid"></div>
+            </div>
+            <div id="feedback" class="hidden"></div>
+        </section>
+
+        <!-- PUZZLE SCREEN -->
+        <section id="puzzle-screen" class="screen">
+            <button class="back-btn" onclick="goHome()">← Zurück zum Hauptmenü</button>
+            <h3>Puzzle-Übung: Wie geht es Ihnen?</h3>
+            <div style="display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1.5rem;" id="puzzle-area">
+                <div class="puzzle-row" data-answer="sehr gut" style="display:flex; align-items:center; gap:1rem; background:white; padding:0.75rem; border-radius:6px;">
+                    <span style="font-size: 1.5rem;">😊</span>
+                    <div style="background:#cbd5e1; padding:0.5rem 1rem; border-radius:4px; font-weight:bold;">Puzzleteil</div>
+                    <select class="puzzle-select" style="padding:0.5rem; border-radius:4px; border:1px solid #ccc;">
+                        <option value="">-- Wählen --</option>
+                        <option value="schlecht">schlecht</option>
+                        <option value="gut">gut</option>
+                        <option value="sehr gut">sehr gut</option>
+                        <option value="nicht so gut">nicht so gut</option>
+                        <option value="sehr schlecht">sehr schlecht</option>
+                    </select>
+                </div>
+                <div class="puzzle-row" data-answer="gut" style="display:flex; align-items:center; gap:1rem; background:white; padding:0.75rem; border-radius:6px;">
+                    <span style="font-size: 1.5rem;">🙂</span>
+                    <div style="background:#cbd5e1; padding:0.5rem 1rem; border-radius:4px; font-weight:bold;">Puzzleteil</div>
+                    <select class="puzzle-select" style="padding:0.5rem; border-radius:4px; border:1px solid #ccc;">
+                        <option value="">-- Wählen --</option>
+                        <option value="schlecht">schlecht</option>
+                        <option value="gut">gut</option>
+                        <option value="sehr gut">sehr gut</option>
+                        <option value="nicht so gut">nicht so gut</option>
+                        <option value="sehr schlecht">sehr schlecht</option>
+                    </select>
+                </div>
+                <div class="puzzle-row" data-answer="nicht so gut" style="display:flex; align-items:center; gap:1rem; background:white; padding:0.75rem; border-radius:6px;">
+                    <span style="font-size: 1.5rem;">😐</span>
+                    <div style="background:#cbd5e1; padding:0.5rem 1rem; border-radius:4px; font-weight:bold;">Puzzleteil</div>
+                    <select class="puzzle-select" style="padding:0.5rem; border-radius:4px; border:1px solid #ccc;">
+                        <option value="">-- Wählen --</option>
+                        <option value="schlecht">schlecht</option>
+                        <option value="gut">gut</option>
+                        <option value="sehr gut">sehr gut</option>
+                        <option value="nicht so gut">nicht so gut</option>
+                        <option value="sehr schlecht">sehr schlecht</option>
+                    </select>
+                </div>
+                <div class="puzzle-row" data-answer="schlecht" style="display:flex; align-items:center; gap:1rem; background:white; padding:0.75rem; border-radius:6px;">
+                    <span style="font-size: 1.5rem;">🙁</span>
+                    <div style="background:#cbd5e1; padding:0.5rem 1rem; border-radius:4px; font-weight:bold;">Puzzleteil</div>
+                    <select class="puzzle-select" style="padding:0.5rem; border-radius:4px; border:1px solid #ccc;">
+                        <option value="">-- Wählen --</option>
+                        <option value="schlecht">schlecht</option>
+                        <option value="gut">gut</option>
+                        <option value="sehr gut">sehr gut</option>
+                        <option value="nicht so gut">nicht so gut</option>
+                        <option value="sehr schlecht">sehr schlecht</option>
+                    </select>
+                </div>
+                <div class="puzzle-row" data-answer="sehr schlecht" style="display:flex; align-items:center; gap:1rem; background:white; padding:0.75rem; border-radius:6px;">
+                    <span style="font-size: 1.5rem;">😞</span>
+                    <div style="background:#cbd5e1; padding:0.5rem 1rem; border-radius:4px; font-weight:bold;">Puzzleteil</div>
+                    <select class="puzzle-select" style="padding:0.5rem; border-radius:4px; border:1px solid #ccc;">
+                        <option value="">-- Wählen --</option>
+                        <option value="schlecht">schlecht</option>
+                        <option value="gut">gut</option>
+                        <option value="sehr gut">sehr gut</option>
+                        <option value="nicht so gut">nicht so gut</option>
+                        <option value="sehr schlecht">sehr schlecht</option>
+                    </select>
+                </div>
+            </div>
+            <button class="action-btn" onclick="checkPuzzle()">Puzzle prüfen</button>
+            <div id="puzzle-feedback" class="hidden"></div>
+        </section>
+
+        <!-- VERBS SCREEN -->
+        <section id="verbs-screen" class="screen">
+            <button class="back-btn" onclick="goHome()">← Zurück zum Hauptmenü</button>
+            <h3>Wichtige Deutsche Verben (Konjugation)</h3>
+            <table>
+                <tr>
+                    <th>Pronomen</th>
+                    <th>sein (to be)</th>
+                    <th>haben (to have)</th>
+                    <th>kommen (to come)</th>
+                    <th>sehen (to see)</th>
+                </tr>
+                <tr><td><strong>ich</strong></td><td>bin</td><td>habe</td><td>komme</td><td>sehe</td></tr>
+                <tr><td><strong>du</strong></td><td>bist</td><td>hast</td><td>kommst</td><td>siehst</td></tr>
+                <tr><td><strong>er / sie / es</strong></td><td>ist</td><td>hat</td><td>kommt</td><td>sieht</td></tr>
+                <tr><td><strong>wir</strong></td><td>sind</td><td>haben</td><td>kommen</td><td>sehen</td></tr>
+                <tr><td><strong>ihr</strong></td><td>seid</td><td>habt</td><td>kommt</td><td>seht</td></tr>
+                <tr><td><strong>sie / Sie</strong></td><td>sind</td><td>haben</td><td>kommen</td><td>sehen</td></tr>
+            </table>
+        </section>
     </main>
+
+    <script>
+        const dialoguesData = [
+            {
+                id: 1, title: "Modul 1: Begrüßung & Kennenlernen (A1)", type: "choice",
+                steps: [
+                    { prompt: "Person A: Guten Tag! Ich heiße Markus. Wie ist dein Name?", options: ["Hallo, ich heiße Sarah.", "Auf Wiedersehen.", "Mir geht es gut."], correct: 0 },
+                    { prompt: "Person B: Freut mich, Markus! Woher kommst du ursprünglich?", options: ["Ich komme aus München.", "Guten Morgen.", "Tschüss!"], correct: 0 },
+                    { prompt: "Person A: Und wie gefällt es dir hier in der neuen Stadt?", options: ["Es ist wunderschön und sehr lebendig.", "Ich heiße Sarah.", "Aus München."], correct: 0 }
+                ]
+            },
+            {
+                id: 2, title: "Modul 2: Im Café bestellen & bezahlen (A1)", type: "choice",
+                steps: [
+                    { prompt: "Kellner: Guten Tag! Haben Sie schon gewählt?", options: ["Ja, ich hätte gerne einen großen Milchkaffee.", "Ich heiße Markus.", "Auf Wiedersehen."], correct: 0 },
+                    { prompt: "Kellner: Gerne. Möchten Sie auch etwas Süßes dazu?", options: ["Ein Stück frischen Apfelkuchen bitte.", "Ich komme aus München.", "Mir geht es gut."], correct: 0 }
+                ]
+            },
+            {
+                id: 3, title: "Modul 3: Nach dem Weg fragen (A2)", type: "choice",
+                steps: [
+                    { prompt: "Passant: Entschuldigung, wissen Sie, wo die nächste U-Bahn-Station ist?", options: ["Gehen Sie geradeaus und dann die zweite Straße links.", "Ich heiße Sarah.", "Mir geht es gut."], correct: 0 },
+                    { prompt: "Passant: Ist das weit von hier zu Fuß?", options: ["Nein, höchstens fünf Minuten.", "Ja, ich komme aus München.", "Guten Tag."], correct: 0 }
+                ]
+            },
+            {
+                id: 4, title: "Modul 4: Im Supermarkt nach Produkten fragen (A1)", type: "choice",
+                steps: [
+                    { prompt: "Kunde: Entschuldigung, wo finde ich frisches Gemüse?", options: ["Direkt am Eingang auf der linken Seite.", "Ich trinke gerne Wasser.", "Auf Wiedersehen."], correct: 0 },
+                    { prompt: "Kunde: Und gibt es hier auch biologisch angebauten Tomaten?", options: ["Ja, im Gang drei neben den Gurken.", "Guten Morgen.", "Nein, danke."], correct: 0 }
+                ]
+            },
+            {
+                id: 5, title: "Modul 5: Über Hobbies und Freizeit sprechen (A2)", type: "choice",
+                steps: [
+                    { prompt: "Person A: Was machst du eigentlich am Wochenende am liebsten?", options: ["Ich gehe oft wandern und fotografiere die Natur.", "Ich komme aus Berlin.", "Mir geht es gut."], correct: 0 },
+                    { prompt: "Person B: Das klingt spannend! Machst du das ganz alleine?", options: ["Meistens gehe ich mit Freunden oder meiner Familie.", "Nein, das ist ein Bahnhof.", "Tschüss!"], correct: 0 }
+                ]
+            },
+            {
+                id: 6, title: "Modul 6: Termine beim Arzt vereinbaren (A2)", type: "choice",
+                steps: [
+                    { prompt: "Empfang: Praxis Dr. Schmidt, guten Tag.", options: ["Guten Tag, ich möchte gerne einen Termin vereinbaren.", "Ich heiße Anna.", "Ich suche den Bahnhof."], correct: 0 },
+                    { prompt: "Empfang: Sind Sie bereits Patient bei uns in der Praxis?", options: ["Nein, ich komme zum ersten Mal zu Ihnen.", "Zwei Kaffee, bitte.", "In Gang 3."], correct: 0 }
+                ]
+            },
+            {
+                id: 7, title: "Modul 7: Sätze Ordnen - Kennenlernen (A1/A2)", type: "order",
+                sentences: [
+                    "Hallo! Entschuldigung, ist dieser Platz noch frei?",
+                    "Ja, natürlich, setzen Sie sich bitte.",
+                    "Vielen Dank. Ich heiße Thomas, und Sie?",
+                    "Ich bin Maria. Studieren Sie hier an der Universität?",
+                    "Nein, ich arbeite schon seit zwei Jahren als Ingenieur."
+                ]
+            },
+            {
+                id: 8, title: "Modul 8: Erweiterte Geschäftsreise & Hotelbuchung (A2-B1)", type: "choice",
+                steps: [
+                    { prompt: "Rezeption: Grand Hotel, guten Tag. Was kann ich für Sie tun?", options: ["Guten Tag, ich habe eine Reservierung auf den Namen Wagner für drei Nächte.", "Wo ist die U-Bahn?", "Ich möchte einen Kaffee."], correct: 0 },
+                    { prompt: "Rezeption: Lassen Sie mich kurz nachschauen... Ah, Zimmer 402 mit Blick auf den Park, korrekt?", options: ["Genau, ist das Frühstück im Übernachtungspreis inbegriffen?", "Nein, ich mag kein Wasser.", "Auf Wiederhören."], correct: 0 },
+                    { prompt: "Rezeption: Ja, das reichhaltige Buffet ist täglich von 6:30 bis 10:00 Uhr verfügbar.",- options: ["Ausgezeichnet. Könnten Sie mir bitte noch einen Weckservice für morgen früh um 7 Uhr einrichten?", "Tschüss.", "Danke für nichts."], correct: 0 }
+                ]
+            },
+            {
+                id: 9, title: "Modul 9: Technischer Support & IT-Probleme (B1)", type: "choice",
+                steps: [
+                    { prompt: "Support: IT-Helpdesk, Müller am Apparat. Welches Problem liegt vor?", options: ["Guten Tag, mein Laptop verbindet sich nach dem heutigen Systemupdate nicht mehr mit dem Firmennetzwerk.", "Ich suche eine Jacke in Größe L.", "Mir geht es gut, danke."], correct: 0 },
+                    { prompt: "Support: Haben Sie bereits versucht, den VPN-Client neu zu starten oder den Router zu reinitialisieren?", options: ["Ja, beides mehrfach durchgeführt, aber die Authentifizierung schlägt mit einem Zeitüberschreitungsfehler fehl.", "Ich trinke gerne Kaffee mit Milch.", "Auf Wiedersehen."], correct: 0 },
+                    { prompt: "Support: Verstehe. Das klingt nach einem Zertifikatsproblem. Ich schalte mich per Fernwartung auf Ihr System.", "options": ["Vielen Dank, ich erlaube den Zugriff sofort.", "Nein, das möchte ich nicht.", "Bis bald."], correct: 0 }
+                ]
+            },
+            {
+                id: 10, title: "Modul 10: Wissenschaftliches Kolloquium & Forschung (B1-B2)", type: "choice",
+                steps: [
+                    { prompt: "Professor: Willkommen zum Seminar über formale Verifikation und Modellprüfung. Welchen Ansatz bevorzugen Sie?", options: ["Ich halte temporale Logik und symbolisches Model Checking für besonders effektiv bei der Fehlererkennung.", "Ich möchte gerne Äpfel kaufen.", "Der Zug fährt um 10 Uhr ab."], correct: 0 },
+                    { prompt: "Professor: Ein ambitionierter Ansatz. Wie gehen Sie mit dem Zustandsexplosionsproblem um?", options: ["Durch den Einsatz von BDD-basierten Datenstrukturen und Abstraktionstechniken lässt sich die Komplexität stark reduzieren.", "Das Wetter ist heute sehr schön.", "Zwei Kaffee bitte."], correct: 0 }
+                ]
+            }
+        ];
+
+        let currentDialogue = null;
+        let currentStepIndex = 0;
+        let score = 0;
+
+        const menuScreen = document.getElementById('menu-screen');
+        const dialogueMenuScreen = document.getElementById('dialogue-menu-screen');
+        const exerciseScreen = document.getElementById('exercise-screen');
+        const puzzleScreen = document.getElementById('puzzle-screen');
+        const verbsScreen = document.getElementById('verbs-screen');
+        
+        const subDialogueList = document.getElementById('sub-dialogue-list');
+        const dialogueTitle = document.getElementById('dialogue-title');
+        const promptArea = document.getElementById('prompt-area');
+        const optionsArea = document.getElementById('options-area');
+        const feedback = document.getElementById('feedback');
+        const scoreDisplay = document.getElementById('score');
+
+        function hideAllScreens() {
+            menuScreen.classList.remove('active');
+            dialogueMenuScreen.classList.remove('active');
+            exerciseScreen.classList.remove('active');
+            puzzleScreen.classList.remove('active');
+            verbsScreen.classList.remove('active');
+        }
+
+        function goHome() {
+            hideAllScreens();
+            menuScreen.classList.add('active');
+        }
+
+        function openModuleSection() {
+            hideAllScreens();
+            dialogueMenuScreen.classList.add('active');
+            subDialogueList.innerHTML = '';
+            dialoguesData.forEach(dialogue => {
+                const card = document.createElement('div');
+                card.className = 'dialogue-card';
+                if (dialogue.type === "order") {
+                    card.innerHTML = `<h3>${dialogue.title}</h3><p>Sätze ordnen</p>`;
+                } else {
+                    card.innerHTML = `<h3>${dialogue.title}</h3><p>${dialogue.steps.length} Schritte</p>`;
+                }
+                card.addEventListener('click', () => startDialogue(dialogue.id));
+                subDialogueList.appendChild(card);
+            });
+        }
+
+        function openSpecialModule(id) {
+            startDialogue(id);
+        }
+
+        function openPuzzleScreen() {
+            hideAllScreens();
+            puzzleScreen.classList.add('active');
+        }
+
+        function openVerbsScreen() {
+            hideAllScreens();
+            verbsScreen.classList.add('active');
+        }
+
+        function startDialogue(id) {
+            currentDialogue = dialoguesData.find(d => d.id === id);
+            currentStepIndex = 0;
+            hideAllScreens();
+            exerciseScreen.classList.add('active');
+            dialogueTitle.textContent = currentDialogue.title;
+            
+            if (currentDialogue.type === "order") {
+                loadOrderExercise();
+            } else {
+                loadStep();
+            }
+        }
+
+        function loadStep() {
+            feedback.className = 'hidden';
+            optionsArea.innerHTML = '';
+            
+            if (currentStepIndex >= currentDialogue.steps.length) {
+                promptArea.innerHTML = `<h3>🎉 Bravo! Modul abgeschlossen!</h3>`;
+                return;
+            }
+
+            const step = currentDialogue.steps[currentStepIndex];
+            promptArea.innerHTML = `<p><strong>${step.prompt}</strong></p>`;
+
+            let shuffled = step.options.map((opt, idx) => ({ text: opt, originalIndex: idx }));
+            shuffled.sort(() => Math.random() - 0.5);
+
+            shuffled.forEach(item => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.textContent = item.text;
+                btn.addEventListener('click', () => checkAnswer(item.originalIndex === step.correct, btn));
+                optionsArea.appendChild(btn);
+            });
+        }
+
+        function checkAnswer(isCorrect, btn) {
+            const buttons = optionsArea.querySelectorAll('.option-btn');
+            buttons.forEach(b => b.disabled = true);
+
+            if (isCorrect) {
+                btn.classList.add('correct');
+                feedback.textContent = "Richtig! Gut gemacht.";
+                feedback.className = "success";
+                score += 10;
+                scoreDisplay.textContent = score;
+                currentStepIndex++;
+                setTimeout(loadStep, 1500);
+            } else {
+                btn.classList.add('wrong');
+                feedback.textContent = "Falsch. Versuch es noch einmal!";
+                feedback.className = "error";
+                setTimeout(() => {
+                    buttons.forEach(b => b.disabled = false);
+                    btn.classList.remove('wrong');
+                    feedback.className = "hidden";
+                }, 1500);
+            }
+        }
+
+        function loadOrderExercise() {
+            feedback.className = 'hidden';
+            promptArea.innerHTML = `<p><strong>Bringe die Sätze in die richtige Reihenfolge (nutze die Pfeile):</strong></p>`;
+            optionsArea.innerHTML = '';
+
+            let workingList = [...currentDialogue.sentences];
+            workingList.sort(() => Math.random() - 0.5);
+
+            const listContainer = document.createElement('div');
+            listContainer.style.display = "flex";
+            listContainer.style.flexDirection = "column";
+            listContainer.style.gap = "0.5rem";
+
+            function renderListItems() {
+                listContainer.innerHTML = '';
+                workingList.forEach((sentence, index) => {
+                    const item = document.createElement('div');
+                    item.className = 'order-item';
+                    item.innerHTML = `
+                        <span>${index + 1}. ${sentence}</span>
+                        <div class="order-controls">
+                            <button onclick="moveItem(${index}, -1)">▲</button>
+                            <button onclick="moveItem(${index}, 1)">▼</button>
+                        </div>
+                    `;
+                    listContainer.appendChild(item);
+                });
+            }
+
+            window.moveItem = function(index, direction) {
+                const newIndex = index + direction;
+                if (newIndex >= 0 && newIndex < workingList.length) {
+                    const temp = workingList[index];
+                    workingList[index] = workingList[newIndex];
+                    workingList[newIndex] = temp;
+                    renderListItems();
+                }
+            };
+
+            renderListItems();
+            optionsArea.appendChild(listContainer);
+
+            const submitBtn = document.createElement('button');
+            submitBtn.id = 'submit-order-btn';
+            submitBtn.textContent = 'Reihenfolge prüfen';
+            submitBtn.addEventListener('click', () => {
+                const correctOrder = currentDialogue.sentences;
+                let isMatch = workingList.every((val, idx) => val === correctOrder[idx]);
+                
+                if (isMatch) {
+                    feedback.textContent = "🎉 Richtig! Perfekte Reihenfolge.";
+                    feedback.className = "success";
+                    score += 20;
+                    scoreDisplay.textContent = score;
+                    submitBtn.disabled = true;
+                } else {
+                    feedback.textContent = "❌ Noch nicht ganz richtig. Versuche es weiter mit den Pfeilen!";
+                    feedback.className = "error";
+                }
+            });
+            optionsArea.appendChild(submitBtn);
+        }
+
+        function checkPuzzle() {
+            const rows = document.querySelectorAll('.puzzle-row');
+            let allCorrect = true;
+
+            rows.forEach(row => {
+                const expected = row.getAttribute('data-answer');
+                const selected = row.querySelector('.puzzle-select').value;
+                if (selected !== expected) {
+                    allCorrect = false;
+                }
+            });
+
+            const pf = document.getElementById('puzzle-feedback');
+            if (allCorrect) {
+                pf.textContent = "🎉 Richtig! Alle Puzzleteile passen perfekt.";
+                pf.className = "success";
+                score += 20;
+                scoreDisplay.textContent = score;
+            } else {
+                pf.textContent = "❌ Da stimmt noch etwas nicht. Versuche es noch einmal!";
+                pf.className = "error";
+            }
+        }
+    </script>
 </body>
 </html>
