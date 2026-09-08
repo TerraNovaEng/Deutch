@@ -145,8 +145,16 @@
                     <p>Ordnen Sie Smileys den passenden Ausdrücken zu.</p>
                 </div>
                 <div class="dialogue-card" onclick="openVerbsScreen()">
-                    <h3>Verben-Konjugation</h3>
+                    <h3>Verben-Konjugation & Tabellen</h3>
                     <p>Lernen Sie sein, haben, kommen, sehen und mehr.</p>
+                </div>
+                <div class="dialogue-card" onclick="openFamilyScreen()">
+                    <h3>Familie-Puzzle</h3>
+                    <p>Ordnen Sie Familienmitglieder (Eltern, Geschwister usw.).</p>
+                </div>
+                <div class="dialogue-card" onclick="openNumbersScreen()">
+                    <h3>Zahlen von 1 bis 500</h3>
+                    <p>Zahlen lernen und interaktiv üben.</p>
                 </div>
             </div>
         </section>
@@ -259,6 +267,88 @@
                 <tr><td><strong>sie / Sie</strong></td><td>sind</td><td>haben</td><td>kommen</td><td>sehen</td></tr>
             </table>
         </section>
+
+        <!-- FAMILY SCREEN -->
+        <section id="family-screen" class="screen">
+            <button class="back-btn" onclick="goHome()">← Zurück zum Hauptmenü</button>
+            <h3>Familie-Puzzle: Verwandtschaftsgrade ordnen</h3>
+            <p>Ordnen Sie die passenden deutschen Begriffe zu:</p>
+            <div style="display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1.5rem;" id="family-area">
+                <div class="family-row" data-answer="Großeltern" style="display:flex; align-items:center; gap:1rem; background:white; padding:0.75rem; border-radius:6px;">
+                    <span style="min-width: 140px; font-weight:bold;">Mutter & Vater der Eltern</span>
+                    <select class="family-select" style="padding:0.5rem; border-radius:4px; border:1px solid #ccc; flex-grow:1;">
+                        <option value="">-- Wählen --</option>
+                        <option value="Großeltern">Großeltern</option>
+                        <option value="Eltern">Eltern</option>
+                        <option value="Geschwister">Geschwister</option>
+                        <option value="Bruder">Bruder</option>
+                        <option value="Schwester">Schwester</option>
+                    </select>
+                </div>
+                <div class="family-row" data-answer="Eltern" style="display:flex; align-items:center; gap:1rem; background:white; padding:0.75rem; border-radius:6px;">
+                    <span style="min-width: 140px; font-weight:bold;">Mutter & Vater</span>
+                    <select class="family-select" style="padding:0.5rem; border-radius:4px; border:1px solid #ccc; flex-grow:1;">
+                        <option value="">-- Wählen --</option>
+                        <option value="Großeltern">Großeltern</option>
+                        <option value="Eltern">Eltern</option>
+                        <option value="Geschwister">Geschwister</option>
+                        <option value="Bruder">Bruder</option>
+                        <option value="Schwester">Schwester</option>
+                    </select>
+                </div>
+                <div class="family-row" data-answer="Geschwister" style="display:flex; align-items:center; gap:1rem; background:white; padding:0.75rem; border-radius:6px;">
+                    <span style="min-width: 140px; font-weight:bold;">Brüder und Schwestern</span>
+                    <select class="family-select" style="padding:0.5rem; border-radius:4px; border:1px solid #ccc; flex-grow:1;">
+                        <option value="">-- Wählen --</option>
+                        <option value="Großeltern">Großeltern</option>
+                        <option value="Eltern">Eltern</option>
+                        <option value="Geschwister">Geschwister</option>
+                        <option value="Bruder">Bruder</option>
+                        <option value="Schwester">Schwester</option>
+                    </select>
+                </div>
+                <div class="family-row" data-answer="Bruder" style="display:flex; align-items:center; gap:1rem; background:white; padding:0.75rem; border-radius:6px;">
+                    <span style="min-width: 140px; font-weight:bold;">Männliches Geschwisterkind</span>
+                    <select class="family-select" style="padding:0.5rem; border-radius:4px; border:1px solid #ccc; flex-grow:1;">
+                        <option value="">-- Wählen --</option>
+                        <option value="Großeltern">Großeltern</option>
+                        <option value="Eltern">Eltern</option>
+                        <option value="Geschwister">Geschwister</option>
+                        <option value="Bruder">Bruder</option>
+                        <option value="Schwester">Schwester</option>
+                    </select>
+                </div>
+                <div class="family-row" data-answer="Schwester" style="display:flex; align-items:center; gap:1rem; background:white; padding:0.75rem; border-radius:6px;">
+                    <span style="min-width: 140px; font-weight:bold;">Weibliches Geschwisterkind</span>
+                    <select class="family-select" style="padding:0.5rem; border-radius:4px; border:1px solid #ccc; flex-grow:1;">
+                        <option value="">-- Wählen --</option>
+                        <option value="Großeltern">Großeltern</option>
+                        <option value="Eltern">Eltern</option>
+                        <option value="Geschwister">Geschwister</option>
+                        <option value="Bruder">Bruder</option>
+                        <option value="Schwester">Schwester</option>
+                    </select>
+                </div>
+            </div>
+            <button class="action-btn" onclick="checkFamily()">Familie prüfen</button>
+            <div id="family-feedback" class="hidden"></div>
+        </section>
+
+        <!-- NUMBERS SCREEN -->
+        <section id="numbers-screen" class="screen">
+            <button class="back-btn" onclick="goHome()">← Zurück zum Hauptmenü</button>
+            <h3>Zahlen von 1 bis 500</h3>
+            <p>Hier finden Sie eine Übersicht wichtiger Zahlen und Abschnitte bis 500:</p>
+            <div style="background: white; padding: 1.25rem; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); margin-top: 1rem;">
+                <ul style="line-height: 1.8; margin: 0; padding-left: 1.2rem;">
+                    <li><strong>1 - 12:</strong> eins, zwei, drei, vier, fünf, sechs, sieben, acht, neun, zehn, elf, zwölf</li>
+                    <li><strong>13 - 19:</strong> dreizehn, vierzehn, fünfzehn... (Zahl + zehn)</li>
+                    <li><strong>20, 30, 40...:</strong> zwanzig, dreißig, vierzig, fünfzig, sechzig, siebzig, achtzig, neunzig</li>
+                    <li><strong>Zusammengesetzte Zahlen (z.B. 45):</strong> fünfundvierzig (5 und 40)</li>
+                    <li><strong>100 / 200 / 500:</strong> (ein)hundert, zweihundert, fünfhundert</li>
+                </ul>
+            </div>
+        </section>
     </main>
 
     <script>
@@ -348,6 +438,8 @@
         const exerciseScreen = document.getElementById('exercise-screen');
         const puzzleScreen = document.getElementById('puzzle-screen');
         const verbsScreen = document.getElementById('verbs-screen');
+        const familyScreen = document.getElementById('family-screen');
+        const numbersScreen = document.getElementById('numbers-screen');
         
         const subDialogueList = document.getElementById('sub-dialogue-list');
         const dialogueTitle = document.getElementById('dialogue-title');
@@ -362,6 +454,8 @@
             exerciseScreen.classList.remove('active');
             puzzleScreen.classList.remove('active');
             verbsScreen.classList.remove('active');
+            familyScreen.classList.remove('active');
+            numbersScreen.classList.remove('active');
         }
 
         function goHome() {
@@ -398,6 +492,16 @@
         function openVerbsScreen() {
             hideAllScreens();
             verbsScreen.classList.add('active');
+        }
+
+        function openFamilyScreen() {
+            hideAllScreens();
+            familyScreen.classList.add('active');
+        }
+
+        function openNumbersScreen() {
+            hideAllScreens();
+            numbersScreen.classList.add('active');
         }
 
         function startDialogue(id) {
@@ -468,7 +572,6 @@
             optionsArea.innerHTML = '';
 
             let workingList = [...currentDialogue.sentences];
-            workingList.sort(() => Math.random() - 0.5);
 
             const listContainer = document.createElement('div');
             listContainer.style.display = "flex";
@@ -477,7 +580,6 @@
 
             function renderListItems() {
                 listContainer.innerHTML = '';
-                workingList.querySelectorAll = null; // safe
                 workingList.forEach((sentence, index) => {
                     const item = document.createElement('div');
                     item.className = 'order-item';
@@ -547,6 +649,31 @@
             } else {
                 pf.textContent = "❌ Da stimmt noch etwas nicht. Versuche es noch einmal!";
                 pf.className = "error";
+            }
+        }
+
+        function checkFamily() {
+            const rows = document.querySelectorAll('.family-row');
+            let allCorrect = true;
+
+            rows.forEach(row => {
+                const expected = row.getAttribute('data-answer');
+                const selected = row.querySelector('.family-select').value;
+                if (selected !== expected) {
+                    allCorrect = false;
+                }
+            });
+
+            const ff = document.getElementById('family-feedback');
+            ff.style.display = "block";
+            if (allCorrect) {
+                ff.textContent = "🎉 Richtig! Alle Familienmitglieder korrekt zugeordnet.";
+                ff.className = "success";
+                score += 20;
+                scoreDisplay.textContent = score;
+            } else {
+                ff.textContent = "❌ Einige Zuordnungen sind falsch. Bitte überprüfen!";
+                ff.className = "error";
             }
         }
     </script>
