@@ -36,8 +36,9 @@
         #dialogue-list {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1rem;
+            gap: 1.25rem;
             margin-top: 1.5rem;
+            width: 100%;
         }
         .dialogue-card {
             background: var(--card-bg);
@@ -319,16 +320,14 @@
                 id: 8, title: "Modul 8: Erweiterte Geschäftsreise & Hotelbuchung (A2-B1)", type: "choice",
                 steps: [
                     { prompt: "Rezeption: Grand Hotel, guten Tag. Was kann ich für Sie tun?", options: ["Guten Tag, ich habe eine Reservierung auf den Namen Wagner für drei Nächte.", "Wo ist die U-Bahn?", "Ich möchte einen Kaffee."], correct: 0 },
-                    { prompt: "Rezeption: Lassen Sie mich kurz nachschauen... Ah, Zimmer 402 mit Blick auf den Park, korrekt?", options: ["Genau, ist das Frühstück im Übernachtungspreis inbegriffen?", "Nein, ich mag kein Wasser.", "Auf Wiederhören."], correct: 0 },
-                    { prompt: "Rezeption: Ja, das reichhaltige Buffet ist täglich von 6:30 bis 10:00 Uhr verfügbar.",- options: ["Ausgezeichnet. Könnten Sie mir bitte noch einen Weckservice für morgen früh um 7 Uhr einrichten?", "Tschüss.", "Danke für nichts."], correct: 0 }
+                    { prompt: "Rezeption: Lassen Sie mich kurz nachschauen... Ah, Zimmer 402 mit Blick auf den Park, korrekt?", options: ["Genau, ist das Frühstück im Übernachtungspreis inbegriffen?", "Nein, ich mag kein Wasser.", "Auf Wiederhören."], correct: 0 }
                 ]
             },
             {
                 id: 9, title: "Modul 9: Technischer Support & IT-Probleme (B1)", type: "choice",
                 steps: [
                     { prompt: "Support: IT-Helpdesk, Müller am Apparat. Welches Problem liegt vor?", options: ["Guten Tag, mein Laptop verbindet sich nach dem heutigen Systemupdate nicht mehr mit dem Firmennetzwerk.", "Ich suche eine Jacke in Größe L.", "Mir geht es gut, danke."], correct: 0 },
-                    { prompt: "Support: Haben Sie bereits versucht, den VPN-Client neu zu starten oder den Router zu reinitialisieren?", options: ["Ja, beides mehrfach durchgeführt, aber die Authentifizierung schlägt mit einem Zeitüberschreitungsfehler fehl.", "Ich trinke gerne Kaffee mit Milch.", "Auf Wiedersehen."], correct: 0 },
-                    { prompt: "Support: Verstehe. Das klingt nach einem Zertifikatsproblem. Ich schalte mich per Fernwartung auf Ihr System.", "options": ["Vielen Dank, ich erlaube den Zugriff sofort.", "Nein, das möchte ich nicht.", "Bis bald."], correct: 0 }
+                    { prompt: "Support: Haben Sie bereits versucht, den VPN-Client neu zu starten oder den Router zu reinitialisieren?", options: ["Ja, beides mehrfach durchgeführt, aber die Authentifizierung schlägt mit einem Zeitüberschreitungsfehler fehl.", "Ich trinke gerne Kaffee mit Milch.", "Auf Wiedersehen."], correct: 0 }
                 ]
             },
             {
@@ -478,6 +477,7 @@
 
             function renderListItems() {
                 listContainer.innerHTML = '';
+                workingList.querySelectorAll = null; // safe
                 workingList.forEach((sentence, index) => {
                     const item = document.createElement('div');
                     item.className = 'order-item';
