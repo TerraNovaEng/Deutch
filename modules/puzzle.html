@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="de" translate="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Puzzle: Wie geht es dir?</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .puzzle-container { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1.5rem; }
+        .puzzle-row { display: flex; align-items: center; gap: 1rem; background: white; padding: 0.75rem; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .puzzle-piece { background: #cbd5e1; padding: 0.5rem 1rem; border-radius: 4px; font-weight: bold; }
+        select { padding: 0.5rem; border-radius: 4px; border: 1px solid #ccc; font-size: 1rem; }
+        #feedback { margin-top: 1rem; padding: 1rem; border-radius: 6px; font-weight: bold; text-align: center; display: none; }
+        #feedback.success { background: #d4edda; color: #155724; display: block; }
+        #feedback.error { background: #f8d7da; color: #721c24; display: block; }
+        .check-btn { margin-top: 1rem; background: var(--accent); color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 6px; font-weight: bold; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🧩 Puzzle Übung</h1>
+    </header>
+    <main>
+        <a href="../index.html" class="back-btn">← Zurück zum Hauptmenü</a>
+        <h3>Ordnen Sie die passenden Ausdrücke den Smileys zu:</h3>
+        
+        <div class="puzzle-container" id="puzzle-area">
+            <!-- Dynamic rows injected via JS or static HTML -->
+            <div class="puzzle-row" data-answer="sehr gut">
+                <span style="font-size: 1.5rem;">😊</span>
+                <div class="puzzle-piece">Puzzleteil</div>
+                <select class="puzzle-select">
+                    <option value="">-- Wählen --</option>
+                    <option value="schlecht">schlecht</option>
+                    <option value="gut">gut</option>
+                    <option value="sehr gut">sehr gut</option>
+                    <option value="nicht so gut">nicht so gut</option>
+                    <option value="sehr schlecht">sehr schlecht</option>
+                </select>
+            </div>
+            <div class="puzzle-row" data-answer="gut">
+                <span style="font-size: 1.5rem;">🙂</span>
+                <div class="puzzle-piece">Puzzleteil</div>
+                <select class="puzzle-select">
+                    <option value="">-- Wählen --</option>
+                    <option value="schlecht">schlecht</option>
+                    <option value="gut">gut</option>
+                    <option value="sehr gut">sehr gut</option>
+                    <option value="nicht so gut">nicht so gut</option>
+                    <option value="sehr schlecht">sehr schlecht</option>
+                </select>
+            </div>
+            <div class="puzzle-row" data-answer="nicht so gut">
+                <span style="font-size: 1.5rem;">😐</span>
+                <div class="puzzle-piece">Puzzleteil</div>
+                <select class="puzzle-select">
+                    <option value="">-- Wählen --</option>
+                    <option value="schlecht">schlecht</option>
+                    <option value="gut">gut</option>
+                    <option value="sehr gut">sehr gut</option>
+                    <option value="nicht so gut">nicht so gut</option>
+                    <option value="sehr schlecht">sehr schlecht</option>
+                </select>
+            </div>
+            <div class="puzzle-row" data-answer="schlecht">
+                <span style="font-size: 1.5rem;">🙁</span>
+                <div class="puzzle-piece">Puzzleteil</div>
+                <select class="puzzle-select">
+                    <option value="">-- Wählen --</option>
+                    <option value="schlecht">schlecht</option>
+                    <option value="gut">gut</option>
+                    <option value="sehr gut">sehr gut</option>
+                    <option value="nicht so gut">nicht so gut</option>
+                    <option value="sehr schlecht">sehr schlecht</option>
+                </select>
+            </div>
+            <div class="puzzle-row" data-answer="sehr schlecht">
+                <span style="font-size: 1.5rem;">😞</span>
+                <div class="puzzle-piece">Puzzleteil</div>
+                <select class="puzzle-select">
+                    <option value="">-- Wählen --</option>
+                    <option value="schlecht">schlecht</option>
+                    <option value="gut">gut</option>
+                    <option value="sehr gut">sehr gut</option>
+                    <option value="nicht so gut">nicht so gut</option>
+                    <option value="sehr schlecht">sehr schlecht</option>
+                </select>
+            </div>
+        </div>
+
+        <button class="check-btn" onclick="checkPuzzle()">Prüfen</button>
+        <div id="feedback"></div>
+
+        <script>
+            function checkPuzzle() {
+                const rows = document.querySelectorAll('.puzzle-row');
+                let allCorrect = true;
+
+                rows.forEach(row => {
+                    const expected = row.getAttribute('data-answer');
+                    const selected = row.querySelector('.puzzle-select').value;
+                    if (selected !== expected) {
+                        allCorrect = false;
+                    }
+                });
+
+                const feedback = document.getElementById('feedback');
+                if (allCorrect) {
+                    feedback.textContent = "🎉 Richtig! Alle Puzzleteile passen perfekt.";
+                    feedback.className = "success";
+                } else {
+                    feedback.textContent = "❌ Da stimmt noch etwas nicht. Versuche es noch einmal!";
+                    feedback.className = "error";
+                }
+            }
+        </script>
+    </main>
+</body>
+</html>
