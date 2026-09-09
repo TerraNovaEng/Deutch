@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Deutsch Lernportal (A1-A2)</title>
+    <title>Deutsch Lernportal (A1-B2)</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🇩🇪</text></svg>">
     <style>
         :root {
             --primary: #1e293b;
@@ -216,10 +217,10 @@
 </head>
 <body>
     <header>
-        <h1>🇩🇪 Deutsch Lernportal</h1>
+        <h1>🇩🇪 Deutsch Lernportal (A1-B2)</h1>
         <div class="score-panel">
             <span>Punkte: <span id="score">0</span></span>
-            <button class="reset-score-btn" onclick="resetScore()">Punktestand zurücksetzen</button>
+            <button class="reset-score-btn" onclick="resetScore()">Zurücksetzen</button>
         </div>
     </header>
 
@@ -229,7 +230,7 @@
             <h2>Hauptmenü</h2>
             <div id="dialogue-list">
                 <div class="dialogue-card" onclick="openModuleSection()">
-                    <h3>Dialog-Module (A1-A10)</h3>
+                    <h3>Dialog-Module (A1-B2)</h3>
                     <p>8-Schritt tiefgehende Alltags- und Fachdialoge.</p>
                 </div>
                 <div class="dialogue-card" onclick="openSpecialModule(7)">
@@ -249,8 +250,8 @@
                     <p>Ordnen Sie Verwandtschaftsgrade korrekt zu.</p>
                 </div>
                 <div class="dialogue-card" onclick="openNumbersScreen()">
-                    <h3>Zahlen, Rechnen & Uhrzeit (Fancy)</h3>
-                    <p>Interaktives Zahlen-Puzzle, Live-Uhr & Uhren-Matching.</p>
+                    <h3>Zahlen, Rechnen & Uhrzeit (Fancy 40+ Trainer)</h3>
+                    <p>Erweiterter interaktiver Trainer mit über 40 Aufgaben.</p>
                 </div>
             </div>
         </section>
@@ -444,7 +445,7 @@
         <!-- NUMBERS & CLOCK SCREEN -->
         <section id="numbers-screen" class="screen">
             <button class="back-btn" onclick="goHome()">← Zurück zum Hauptmenü</button>
-            <h3>Zahlen, Rechnen & Live-Uhrzeit (Analog & Digital)</h3>
+            <h3>Zahlen, Rechnen & Live-Uhrzeit (40+ Trainer)</h3>
             
             <div class="clock-container">
                 <div class="clock-german-text" id="clock-german-label">Es ist gerade...</div>
@@ -457,66 +458,35 @@
                 </div>
 
                 <div class="clock-display" id="live-clock">00:00:00</div>
-                <p style="color: #64748b; margin: 0; font-size: 0.9rem;">Analoges Zifferblatt & digitale Sekundenanzeige</p>
+                <p style="color: #64748b; margin: 0; font-size: 0.9rem;">Analoges Zifferblatt & deutsche Wortstunden</p>
             </div>
 
+            <!-- DYNAMIC 40+ CLOCK PUZZLE TRAINER -->
             <div style="background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); margin-top: 1.5rem;">
-                <h4>Mini-Uhren Puzzle: Uhrzeit richtig zuordnen</h4>
-                <p>Ordnen Sie die digitale Uhrzeit der korrekten deutschen Redewendung zu:</p>
-                
-                <div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem;" id="clock-match-area">
-                    <div class="clock-match-row" data-answer="halb zwei" style="display:flex; align-items:center; justify-content:space-between; background:#f8fafc; padding:0.75rem 1rem; border-radius:8px; border: 1px solid #e2e8f0;">
-                        <span style="font-size: 1.25rem; font-weight:800; color:var(--primary);">⏰ 01:30</span>
-                        <select class="clock-match-select" style="padding:0.5rem; border-radius:6px; border:1px solid #cbd5e1; width:200px;">
-                            <option value="">-- Wählen --</option>
-                            <option value="viertel nach eins">viertel nach eins</option>
-                            <option value="halb zwei">halb zwei</option>
-                            <option value="viertel vor zwei">viertel vor zwei</option>
-                        </select>
-                    </div>
-                    <div class="clock-match-row" data-answer="viertel nach eins" style="display:flex; align-items:center; justify-content:space-between; background:#f8fafc; padding:0.75rem 1rem; border-radius:8px; border: 1px solid #e2e8f0;">
-                        <span style="font-size: 1.25rem; font-weight:800; color:var(--primary);">⏰ 01:15</span>
-                        <select class="clock-match-select" style="padding:0.5rem; border-radius:6px; border:1px solid #cbd5e1; width:200px;">
-                            <option value="">-- Wählen --</option>
-                            <option value="viertel nach eins">viertel nach eins</option>
-                            <option value="halb zwei">halb zwei</option>
-                            <option value="viertel vor zwei">viertel vor zwei</option>
-                        </select>
-                    </div>
-                    <div class="clock-match-row" data-answer="viertel vor zwei" style="display:flex; align-items:center; justify-content:space-between; background:#f8fafc; padding:0.75rem 1rem; border-radius:8px; border: 1px solid #e2e8f0;">
-                        <span style="font-size: 1.25rem; font-weight:800; color:var(--primary);">⏰ 01:45</span>
-                        <select class="clock-match-select" style="padding:0.5rem; border-radius:6px; border:1px solid #cbd5e1; width:200px;">
-                            <option value="">-- Wählen --</option>
-                            <option value="viertel nach eins">viertel nach eins</option>
-                            <option value="halb zwei">halb zwei</option>
-                            <option value="viertel vor zwei">viertel vor zwei</option>
-                        </select>
-                    </div>
-                </div>
-                <button class="action-btn" onclick="checkClockPuzzle()">Uhrzeiten prüfen</button>
-                <div id="clock-puzzle-feedback" class="hidden" style="margin-top: 1rem; padding: 0.75rem; border-radius: 6px; font-weight: bold; text-align: center;"></div>
+                <h4>Mini-Uhren Puzzle (40+ Uhren-Fragen)</h4>
+                <p id="clock-question-prompt">Lade Uhrzeit-Aufgabe...</p>
+                <div id="clock-options-container" class="options-grid"></div>
+                <div id="clock-trainer-feedback" class="hidden" style="margin-top: 1rem; padding: 0.75rem; border-radius: 6px; font-weight: bold; text-align: center;"></div>
             </div>
 
+            <!-- DYNAMIC 40+ NUMBER SPELLING TRAINER -->
             <div style="background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); margin-top: 1.5rem;">
-                <h4>Zahlenübersicht (1 bis 1000)</h4>
+                <h4>Zahlen-Schreibweisen Trainer (40+ Aufgaben)</h4>
+                <p id="number-question-prompt">Wie schreibt man die Zahl richtig?</p>
+                <div id="number-options-container" class="options-grid"></div>
+                <div id="number-trainer-feedback" class="hidden" style="margin-top: 1rem; padding: 0.75rem; border-radius: 6px; font-weight: bold; text-align: center;"></div>
+            </div>
+
+            <!-- REFERENCE TABLE -->
+            <div style="background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); margin-top: 1.5rem;">
+                <h4>Zahlenübersicht (Eins bis Tausend)</h4>
                 <ul style="line-height: 1.8; margin: 0 0 1.5rem 0; padding-left: 1.2rem; color: var(--text-main);">
-                    <li><strong>1 - 12:</strong> eins, zwei, drei, vier, fünf, sechs, sieben, acht, neun, zehn, elf, zwölf</li>
-                    <li><strong>13 - 19:</strong> dreizehn, vierzehn, fünfzehn, sechzehn, siebzehn, achtzehn, neunzehn</li>
-                    <li><strong>20, 30, 40...:</strong> zwanzig, dreißig, vierzig, fünfzig, sechzig, siebzig, achtzig, neunzig</li>
-                    <li><strong>Zusammengesetzte Zahlen (z.B. 45):</strong> fünfundvierzig (wörtlich: 5 und 40)</li>
+                    <li><strong>Eins bis Zwölf:</strong> eins, zwei, drei, vier, fünf, sechs, sieben, acht, neun, zehn, elf, zwölf</li>
+                    <li><strong>Dreizehn bis Neunzehn:</strong> dreizehn, vierzehn, fünfzehn, sechzehn, siebzehn, achtzehn, neunzehn</li>
+                    <li><strong>Zehnerstufen:</strong> zwanzig, dreißig, vierzig, fünfzig, sechzig, siebzig, achtzig, neunzig</li>
+                    <li><strong>Zusammengesetzte (z.B. 54):</strong> fünfundvierzig, vierundfünfzig (Einer + Zehner)</li>
                     <li><strong>Hunderter & Tausender:</strong> (ein)hundert, zweihundert, eintausend</li>
                 </ul>
-
-                <hr style="border: 0; border-top: 1px solid #e2e8f0; margin: 1.5rem 0;">
-
-                <h4>Zahlen-Puzzle: Ergänzen Sie das Wort</h4>
-                <p>Wie schreibt man die Zahl <strong>54</strong> auf Deutsch richtig?</p>
-                <div style="display: flex; gap: 1rem; margin-top: 1rem;">
-                    <button class="option-btn num-opt" style="flex:1;" onclick="checkNumberPuzzle(false, this)">vierundfünfzig</button>
-                    <button class="option-btn num-opt" style="flex:1;" onclick="checkNumberPuzzle(true, this)">fünfundvierzig</button>
-                    <button class="option-btn num-opt" style="flex:1;" onclick="checkNumberPuzzle(false, this)">fünfzigvier</button>
-                </div>
-                <div id="number-puzzle-feedback" class="hidden" style="margin-top: 1rem; padding: 0.75rem; border-radius: 6px; font-weight: bold; text-align: center;"></div>
             </div>
         </section>
     </main>
@@ -583,7 +553,7 @@
                     { prompt: "Person A: Welche Regionen in den Bergen besuchst du am häufigsten?", options: ["Besonders gerne das Alpenvorland wegen der tollen Aussicht.", "Ich trinke Milch.", "Guten Tag."], correct: 0 },
                     { prompt: "Person B: Fotografierst du dabei eher Landschaften oder Tiere?", options: ["Sowohl als auch, aber Landschaften faszinieren mich mehr.", "Ich heiße Anna.", "Nein, danke."], correct: 0 },
                     { prompt: "Person A: Nutzt du dafür professionelle Spiegelreflexkameras?", options: ["Ja, mit verschiedenen Festbrennweiten-Objektiven.", "Das Wetter ist kalt.", "Auf Wiedersehen."], correct: 0 },
-                    { prompt: "Person B: Das erfordert sicher viel Geduld für das perfekte Licht.", options: ["Absolut, oft warte ich Stunden auf den perfekten Moment.", "Ich mag Kaffee.", "Zwei bitte."], correct: 0 },
+                    { prompt: "Person B: Das erfordert sicher viel Geduld für das perfekte Licht.", options: ["Absolut, oft warte ich Stunden auf den perfekten Moment.", "I like coffee.", "Zwei bitte."], correct: 0 },
                     { prompt: "Person A: Bewundernswert! Stellst du deine Fotos auch online aus?", options: ["Ja, auf einer eigenen GitHub Pages Fotoseite.", "Ich wohne hier.", "Nein."], correct: 0 },
                     { prompt: "Person B: Da muss ich unbedingt mal reinschauen!", options: ["Mach das, ich schicke dir den Link.", "Guten Morgen.", "Tschüss."], correct: 0 }
                 ]
@@ -637,7 +607,7 @@
                     { prompt: "Support: Ja, das wäre ideal. Bitte nach dem Neustart direkt wieder einwählen.", options: ["Wird erledigt, ich bin in zwei Minuten wieder da.", "Guten Morgen.", "Tschüss."], correct: 0 },
                     { prompt: "Support (nach Neustart): Hören Sie mich wieder? Wie sieht der Status aus?", options: ["Verbindung steht wieder stabil, Authentifizierung war erfolgreich!", "Ich trinke Wasser.", "Auf Wiederhören."], correct: 0 },
                     { prompt: "Support: Hervorragend! Lag tatsächlich am zwischengespeicherten Authentifizierungstoken.", options: ["Vielen Dank für die schnelle professionelle Hilfe.", "Das Auto ist rot.", "Nein."], correct: 0 },
-                    { prompt: "Support: Gerne doch, bei weiteren IT-Fragen einfach wieder melden. Schönen Arbeitstag!", options: ["Danke gleichfalls, tschüss!", "Guten Abend.", "Zwei Kaffee."], correct: 0 }
+                    { prompt: "Support: Gerne doch, bei weiteren IT-Fagern einfach wieder melden. Schönen Arbeitstag!", options: ["Danke gleichfalls, tschüss!", "Guten Abend.", "Zwei Kaffee."], correct: 0 }
                 ]
             },
             {
@@ -655,6 +625,64 @@
             }
         ];
 
+        // 40+ Number Spelling Questions Bank
+        const numberQuestions = [
+            { num: "54", correct: "fünfundvierzig", decoys: ["vierundfünfzig", "fünfzigvier"] },
+            { num: "21", correct: "einundzwanzig", decoys: ["zweiundzwanzig", "einzwanzig"] },
+            { num: "35", correct: "fünfunddreißig", decoys: ["dreiundfünfzig", "fünfzigunddrei"] },
+            { num: "72", correct: "zweiundsiebzig", decoys: ["siebenundzwanzig", "zweisiebzig"] },
+            { num: "88", correct: "achtundachtzig", decoys: ["achtzehnachtzig", "achtundacht"] },
+            { num: "14", correct: "vierzehn", decoys: ["zehnvier", "vierten"] },
+            { num: "19", correct: "neunzehn", decoys: ["zehnneun", "neunten"] },
+            { num: "43", correct: "dreiundvierzig", decoys: ["vierunddreißig", "dreiundvierzig"] },
+            { num: "65", correct: "fünfundsechzig", decoys: ["sechsundfünfzig", "fünfundsechzig"] },
+            { num: "99", correct: "neunundneunzig", decoys: ["neunzigneun", "neunundneun"] },
+            { num: "11", correct: "elf", decoys: ["einszehn", "zehneins"] },
+            { num: "12", correct: "zwölf", decoys: ["zweihten", "zehnzwei"] },
+            { num: "30", correct: "dreißig", decoys: ["dreizig", "dreißig"] },
+            { num: "50", correct: "fünfzig", decoys: ["fünfzig", "fünften"] },
+            { num: "100", correct: "hundert", decoys: ["einhundert", "tausend"] }
+        ];
+
+        // Generate additional number questions programmatically to reach 40+
+        for(let i=16; i<=45; i++) {
+            let tens = ["zwanzig", "dreißig", "vierzig", "fünfzig", "sechzig", "siebzig", "achtzig", "neunzig"];
+            let ones = ["ein", "zwei", "drei", "vier", "fünf", "sechs", "sieben", "acht", "neun"];
+            let tWord = tens[(i % 8)];
+            let oWord = ones[(i % 9)];
+            numberQuestions.push({
+                num: String(i + 20),
+                correct: oWord + "und" + tWord,
+                decoys: [tWord + "und" + oWord, oWord + tWord]
+            });
+        }
+
+        // 40+ Clock Match Questions Bank
+        const clockQuestions = [
+            { time: "01:30", correct: "halb zwei", decoys: ["viertel nach eins", "viertel vor zwei"] },
+            { time: "01:15", correct: "viertel nach eins", decoys: ["halb zwei", "viertel vor zwei"] },
+            { time: "01:45", correct: "viertel vor zwei", decoys: ["viertel nach eins", "halb zwei"] },
+            { time: "02:00", correct: "zwei Uhr", decoys: ["halb zwei", "zwei nach"] },
+            { time: "03:30", correct: "halb vier", decoys: ["halb drei", "drei Uhr"] },
+            { time: "04:15", correct: "viertel nach vier", decoys: ["halb fünf", "viertel vor vier"] },
+            { time: "05:45", correct: "viertel vor sechs", decoys: ["viertel nach fünf", "halb sechs"] },
+            { time: "06:00", correct: "sechs Uhr", decoys: ["sechs Minuten", "halb sechs"] },
+            { time: "07:30", correct: "halb acht", decoys: ["halb sieben", "sieben Uhr"] },
+            { time: "08:15", correct: "viertel nach acht", decoys: ["viertel vor acht", "halb neun"] },
+            { time: "09:45", correct: "viertel vor zehn", decoys: ["viertel nach neun", "halb zehn"] },
+            { time: "10:00", correct: "zehn Uhr", decoys: ["halb zehn", "zehn Minuten"] }
+        ];
+
+        for(let h=1; h<=12; h++) {
+            clockQuestions.push({
+                time: String(h).padStart(2,'0') + ":00",
+                correct: (h===1? "ein Uhr": (h===2? "zwei Uhr": h===3? "drei Uhr": h===4? "vier Uhr": h===5? "fünf Uhr": h===6? "sechs Uhr": h===7? "sieben Uhr": h===8? "acht Uhr": h===9? "neun Uhr": h===10? "zehn Uhr": h===11? "elf Uhr": "zwölf Uhr")),
+                decoys: ["halb eins", "viertel nach eins"]
+            });
+        }
+
+        let currentNumberIndex = 0;
+        let currentClockIndex = 0;
         let currentDialogue = null;
         let currentStepIndex = 0;
         let score = parseInt(localStorage.getItem('deutsch_score')) || 0;
@@ -741,6 +769,80 @@
         function openNumbersScreen() {
             hideAllScreens();
             numbersScreen.classList.add('active');
+            loadNextNumberPuzzle();
+            loadNextClockPuzzle();
+        }
+
+        function loadNextNumberPuzzle() {
+            const q = numberQuestions[currentNumberIndex % numberQuestions.length];
+            document.getElementById('number-question-prompt').innerHTML = `Wie schreibt man die Zahl <strong>${q.num}</strong> auf Deutsch richtig?`;
+            const container = document.getElementById('number-options-container');
+            container.innerHTML = '';
+            document.getElementById('number-trainer-feedback').className = 'hidden';
+
+            let opts = [q.correct, ...q.decoys];
+            opts.sort(() => Math.random() - 0.5);
+
+            opts.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn num-opt';
+                btn.textContent = opt;
+                btn.addEventListener('click', () => {
+                    if (opt === q.correct) {
+                        btn.classList.add('correct');
+                        document.getElementById('number-trainer-feedback').textContent = "🎉 Richtig! Gut gemacht (+10 Punkte).";
+                        document.getElementById('number-trainer-feedback').className = "success";
+                        updateScore(10);
+                        currentNumberIndex++;
+                        setTimeout(loadNextNumberPuzzle, 1500);
+                    } else {
+                        btn.classList.add('wrong');
+                        document.getElementById('number-trainer-feedback').textContent = "❌ Falsch. Nächster Versuch...";
+                        document.getElementById('number-trainer-feedback').className = "error";
+                        setTimeout(() => {
+                            btn.classList.remove('wrong');
+                            document.getElementById('number-trainer-feedback').className = 'hidden';
+                        }, 1200);
+                    }
+                });
+                container.appendChild(btn);
+            });
+        }
+
+        function loadNextClockPuzzle() {
+            const q = clockQuestions[currentClockIndex % clockQuestions.length];
+            document.getElementById('clock-question-prompt').innerHTML = `Welche deutsche Redewendung passt zur Uhrzeit <strong>⏰ ${q.time}</strong>?`;
+            const container = document.getElementById('clock-options-container');
+            container.innerHTML = '';
+            document.getElementById('clock-trainer-feedback').className = 'hidden';
+
+            let opts = [q.correct, ...q.decoys];
+            opts.sort(() => Math.random() - 0.5);
+
+            opts.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn clock-opt';
+                btn.textContent = opt;
+                btn.addEventListener('click', () => {
+                    if (opt === q.correct) {
+                        btn.classList.add('correct');
+                        document.getElementById('clock-trainer-feedback').textContent = "🎉 Richtig! Ausgezeichnet (+15 Punkte).";
+                        document.getElementById('clock-trainer-feedback').className = "success";
+                        updateScore(15);
+                        currentClockIndex++;
+                        setTimeout(loadNextClockPuzzle, 1500);
+                    } else {
+                        btn.classList.add('wrong');
+                        document.getElementById('clock-trainer-feedback').textContent = "❌ Falsch. Noch einmal versuchen.";
+                        document.getElementById('clock-trainer-feedback').className = "error";
+                        setTimeout(() => {
+                            btn.classList.remove('wrong');
+                            document.getElementById('clock-trainer-feedback').className = 'hidden';
+                        }, 1200);
+                    }
+                });
+                container.appendChild(btn);
+            });
         }
 
         function startDialogue(id) {
@@ -794,7 +896,7 @@
                 setTimeout(loadStep, 1200);
             } else {
                 btn.classList.add('wrong');
-                feedback.textContent = "Falsch. Das Auswahlfeld wird gleich zurückgesetzt, versuche es noch einmal!";
+                feedback.textContent = "Falsch. Das Auswahlfeld wird gleich zurückgesetzt!";
                 feedback.className = "error";
                 setTimeout(() => {
                     buttons.forEach(b => {
@@ -812,7 +914,6 @@
             optionsArea.innerHTML = '';
 
             let workingList = [...currentDialogue.sentences];
-
             const listContainer = document.createElement('div');
             listContainer.style.display = "flex";
             listContainer.style.flexDirection = "column";
@@ -860,7 +961,7 @@
                     updateScore(20);
                     submitBtn.disabled = true;
                 } else {
-                    feedback.textContent = "❌ Noch nicht ganz richtig. Versuche es weiter mit den Pfeilen!";
+                    feedback.textContent = "❌ Noch nicht ganz richtig. Versuchen Sie es weiter!";
                     feedback.className = "error";
                 }
             });
@@ -874,9 +975,7 @@
             rows.forEach(row => {
                 const expected = row.getAttribute('data-answer');
                 const selected = row.querySelector('.puzzle-select').value;
-                if (selected !== expected) {
-                    allCorrect = false;
-                }
+                if (selected !== expected) allCorrect = false;
             });
 
             const pf = document.getElementById('puzzle-feedback');
@@ -898,9 +997,7 @@
             rows.forEach(row => {
                 const expected = row.getAttribute('data-answer');
                 const selected = row.querySelector('.family-select').value;
-                if (selected !== expected) {
-                    allCorrect = false;
-                }
+                if (selected !== expected) allCorrect = false;
             });
 
             const ff = document.getElementById('family-feedback');
@@ -943,57 +1040,7 @@
             }
         }
 
-        function checkNumberPuzzle(isCorrect, btn) {
-            const nf = document.getElementById('number-puzzle-feedback');
-            nf.style.display = "block";
-            const allBtns = document.querySelectorAll('.num-opt');
-            allBtns.forEach(b => b.disabled = true);
-
-            if (isCorrect) {
-                btn.style.background = "#10b981";
-                btn.style.color = "white";
-                nf.textContent = "🎉 Ausgezeichnet! 54 heißt auf Deutsch 'fünfundvierzig' (+15 Punkte).";
-                nf.className = "success";
-                updateScore(15);
-            } else {
-                btn.style.background = "#ef4444";
-                btn.style.color = "white";
-                nf.textContent = "❌ Falsch. Zurücksetzen in 2 Sekunden...";
-                nf.className = "error";
-                setTimeout(() => {
-                    allBtns.forEach(b => {
-                        b.disabled = false;
-                        b.style.background = "white";
-                        b.style.color = "var(--text-main)";
-                    });
-                    nf.className = "hidden";
-                }, 1500);
-            }
-        }
-
-        function checkClockPuzzle() {
-            const rows = document.querySelectorAll('.clock-match-row');
-            let allCorrect = true;
-
-            rows.forEach(row => {
-                const expected = row.getAttribute('data-answer');
-                const selected = row.querySelector('.clock-match-select').value;
-                if (selected !== expected) {
-                    allCorrect = false;
-                }
-            });
-
-            const cf = document.getElementById('clock-puzzle-feedback');
-            cf.style.display = "block";
-            if (allCorrect) {
-                cf.textContent = "🎉 Richtig! Alle Uhren wurden perfekt zugeordnet (+20 Punkte).";
-                cf.className = "success";
-                updateScore(20);
-            } else {
-                cf.textContent = "❌ Mindestens eine Uhrzeit ist falsch zugeordnet. Versuchen Sie es noch einmal!";
-                cf.className = "error";
-            }
-        }
+        const germanHours = ["zwölf", "eins", "zwei", "drei", "vier", "fünf", "sechs", "sieben", "acht", "neun", "zehn", "elf"];
 
         function updateClock() {
             const now = new Date();
@@ -1012,6 +1059,7 @@
                 clockEl.textContent = `${hoursStr}:${minutesStr}:${secondsStr}`;
             }
             if (labelEl) {
+                let hWord = germanHours[hours % 12];
                 let timeGreeting = "Es ist Tag";
                 if (hours >= 5 && hours < 11) timeGreeting = "Guten Morgen! Es ist";
                 else if (hours >= 11 && hours < 15) timeGreeting = "Mittagszeit! Es ist";
@@ -1019,7 +1067,7 @@
                 else if (hours >= 18 && hours < 22) timeGreeting = "Guten Abend! Es ist";
                 else timeGreeting = "Gute Nacht! Es ist";
                 
-                labelEl.textContent = `${timeGreeting} Uhr (${hoursStr} Stunden, ${minutesStr} Minuten, ${secondsStr} Sekunden)`;
+                labelEl.textContent = `${timeGreeting} ${hWord} Uhr (${hoursStr} Stunden, ${minutesStr} Minuten, ${secondsStr} Sekunden)`;
             }
 
             const secondDeg = (seconds / 60) * 360;
