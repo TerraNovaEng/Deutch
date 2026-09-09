@@ -6,28 +6,30 @@
     <title>Deutsch Lernportal (A1-A2)</title>
     <style>
         :root {
-            --primary: #2c3e50;
-            --accent: #27ae60;
-            --bg: #f4f7f6;
+            --primary: #1e293b;
+            --accent: #10b981;
+            --bg: #f8fafc;
             --card-bg: #ffffff;
+            --text-main: #334155;
         }
         body {
             font-family: system-ui, -apple-system, sans-serif;
             background: var(--bg);
             margin: 0;
             padding: 0;
-            color: var(--primary);
+            color: var(--text-main);
         }
         header {
             background: var(--primary);
             color: white;
-            padding: 1rem;
+            padding: 1rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
         main {
-            max-width: 800px;
+            max-width: 900px;
             margin: 2rem auto;
             padding: 0 1rem;
         }
@@ -35,26 +37,25 @@
         .screen.active { display: block; }
         #dialogue-list {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
             gap: 1.25rem;
             margin-top: 1.5rem;
-            width: 100%;
         }
         .dialogue-card {
             background: var(--card-bg);
             padding: 1.25rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
             cursor: pointer;
             transition: transform 0.2s, box-shadow 0.2s;
-            border-left: 4px solid var(--accent);
+            border-left: 5px solid var(--accent);
         }
         .dialogue-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
         }
-        .dialogue-card h3 { margin: 0 0 0.5rem 0; font-size: 1.1rem; }
-        .dialogue-card p { margin: 0; color: #666; font-size: 0.9rem; }
+        .dialogue-card h3 { margin: 0 0 0.5rem 0; font-size: 1.1rem; color: var(--primary); }
+        .dialogue-card p { margin: 0; color: #64748b; font-size: 0.9rem; }
         .options-grid {
             display: flex;
             flex-direction: column;
@@ -63,62 +64,105 @@
         }
         .option-btn, .order-item {
             background: white;
-            border: 2px solid var(--primary);
-            padding: 0.75rem 1rem;
-            border-radius: 6px;
+            border: 2px solid #cbd5e1;
+            padding: 1rem;
+            border-radius: 8px;
             font-size: 1rem;
             cursor: pointer;
             text-align: left;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            transition: border-color 0.2s, background 0.2s;
         }
-        .option-btn:hover, .order-item:hover { background: #e2e8f0; }
-        .option-btn.correct { background: #27ae60; color: white; border-color: #27ae60; }
-        .option-btn.wrong { background: #c0392b; color: white; border-color: #c0392b; }
+        .option-btn:hover, .order-item:hover { border-color: var(--accent); background: #f1f5f9; }
+        .option-btn.correct { background: #10b981; color: white; border-color: #10b981; }
+        .option-btn.wrong { background: #ef4444; color: white; border-color: #ef4444; }
         
         .order-controls button {
             background: var(--primary);
             color: white;
             border: none;
-            padding: 0.3rem 0.6rem;
-            margin-left: 0.3rem;
-            border-radius: 4px;
+            padding: 0.4rem 0.7rem;
+            margin-left: 0.4rem;
+            border-radius: 6px;
             cursor: pointer;
         }
         #feedback {
             margin-top: 1rem;
             padding: 1rem;
-            border-radius: 6px;
+            border-radius: 8px;
             font-weight: bold;
             text-align: center;
         }
-        #feedback.success { background: #d4edda; color: #155724; }
-        #feedback.error { background: #f8d7da; color: #721c24; }
+        #feedback.success { background: #d1fae5; color: #065f46; }
+        #feedback.error { background: #fee2e2; color: #991b1b; }
         .hidden { display: none; }
-        #back-btn {
+        .back-btn {
             background: var(--primary);
             color: white;
             border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
             cursor: pointer;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
+            font-weight: 500;
         }
+        .back-btn:hover { background: #334155; }
         #submit-order-btn, .action-btn {
-            margin-top: 1rem;
+            margin-top: 1.2rem;
             background: var(--accent);
             color: white;
             border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 6px;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
             font-size: 1rem;
             cursor: pointer;
             font-weight: bold;
         }
-        table { width: 100%; border-collapse: collapse; background: white; margin-top: 1rem; border-radius: 6px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
-        th, td { padding: 0.75rem 1rem; border-bottom: 1px solid #e2e8f0; text-align: left; }
+        table { width: 100%; border-collapse: collapse; background: white; margin-top: 1rem; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
+        th, td { padding: 1rem; border-bottom: 1px solid #e2e8f0; text-align: left; }
         th { background: var(--primary); color: white; }
+
+        /* Fancy Clock Styles */
+        .clock-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+        .clock-display {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: 2px;
+            font-variant-numeric: tabular-nums;
+            margin: 1rem 0;
+            background: #f1f5f9;
+            padding: 1rem;
+            border-radius: 12px;
+        }
+        .clock-german-text {
+            font-size: 1.25rem;
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        /* Fancy Interactive Matching / Puzzle Grid */
+        .puzzle-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .puzzle-box {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            border: 2px solid #e2e8f0;
+        }
     </style>
 </head>
 <body>
@@ -134,7 +178,7 @@
             <div id="dialogue-list">
                 <div class="dialogue-card" onclick="openModuleSection()">
                     <h3>Dialog-Module (A1-A10)</h3>
-                    <p>Wählen Sie aus 10 anspruchsvollen Alltagsdialogen.</p>
+                    <p>8-Schritt tiefgehende Alltags- und Fachdialoge.</p>
                 </div>
                 <div class="dialogue-card" onclick="openSpecialModule(7)">
                     <h3>Sätze Ordnen</h3>
@@ -145,16 +189,16 @@
                     <p>Ordnen Sie Smileys den passenden Ausdrücken zu.</p>
                 </div>
                 <div class="dialogue-card" onclick="openVerbsScreen()">
-                    <h3>Verben-Konjugation & Tabellen</h3>
-                    <p>Lernen Sie sein, haben, kommen, sehen und mehr.</p>
+                    <h3>Verben-Konjugation & Zuordnung</h3>
+                    <p>Lernen Sie Verben mit interaktiven Herausforderungen.</p>
                 </div>
                 <div class="dialogue-card" onclick="openFamilyScreen()">
                     <h3>Familie-Puzzle</h3>
-                    <p>Ordnen Sie Familienmitglieder (Eltern, Geschwister usw.).</p>
+                    <p>Ordnen Sie Verwandtschaftsgrade korrekt zu.</p>
                 </div>
                 <div class="dialogue-card" onclick="openNumbersScreen()">
-                    <h3>Zahlen von 1 bis 500</h3>
-                    <p>Zahlen lernen und interaktiv üben.</p>
+                    <h3>Zahlen, Rechnen & Uhrzeit (Fancy)</h3>
+                    <p>Interaktives Zahlen-Puzzle, Referenz und Live-Uhr.</p>
                 </div>
             </div>
         </section>
@@ -162,7 +206,7 @@
         <!-- DIALOGUE SELECTION SCREEN -->
         <section id="dialogue-menu-screen" class="screen">
             <button class="back-btn" onclick="goHome()">← Zurück zum Hauptmenü</button>
-            <h2>Wähle ein Dialog-Modul (A1 - A2)</h2>
+            <h2>Wähle ein Dialog-Modul (8 Schritte)</h2>
             <div id="sub-dialogue-list" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-top: 1.5rem;"></div>
         </section>
 
@@ -182,10 +226,10 @@
             <button class="back-btn" onclick="goHome()">← Zurück zum Hauptmenü</button>
             <h3>Puzzle-Übung: Wie geht es Ihnen?</h3>
             <div style="display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1.5rem;" id="puzzle-area">
-                <div class="puzzle-row" data-answer="sehr gut" style="display:flex; align-items:center; gap:1rem; background:white; padding:0.75rem; border-radius:6px;">
+                <div class="puzzle-row" data-answer="sehr gut" style="display:flex; align-items:center; gap:1rem; background:white; padding:0.75rem; border-radius:8px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
                     <span style="font-size: 1.5rem;">😊</span>
-                    <div style="background:#cbd5e1; padding:0.5rem 1rem; border-radius:4px; font-weight:bold;">Puzzleteil</div>
-                    <select class="puzzle-select" style="padding:0.5rem; border-radius:4px; border:1px solid #ccc;">
+                    <div style="background:#f1f5f9; padding:0.5rem 1rem; border-radius:6px; font-weight:bold;">Puzzleteil</div>
+                    <select class="puzzle-select" style="padding:0.5rem; border-radius:6px; border:1px solid #cbd5e1; flex-grow:1;">
                         <option value="">-- Wählen --</option>
                         <option value="schlecht">schlecht</option>
                         <option value="gut">gut</option>
@@ -194,10 +238,10 @@
                         <option value="sehr schlecht">sehr schlecht</option>
                     </select>
                 </div>
-                <div class="puzzle-row" data-answer="gut" style="display:flex; align-items:center; gap:1rem; background:white; padding:0.75rem; border-radius:6px;">
+                <div class="puzzle-row" data-answer="gut" style="display:flex; align-items:center; gap:1rem; background:white; padding:0.75rem; border-radius:8px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
                     <span style="font-size: 1.5rem;">🙂</span>
-                    <div style="background:#cbd5e1; padding:0.5rem 1rem; border-radius:4px; font-weight:bold;">Puzzleteil</div>
-                    <select class="puzzle-select" style="padding:0.5rem; border-radius:4px; border:1px solid #ccc;">
+                    <div style="background:#f1f5f9; padding:0.5rem 1rem; border-radius:6px; font-weight:bold;">Puzzleteil</div>
+                    <select class="puzzle-select" style="padding:0.5rem; border-radius:6px; border:1px solid #cbd5e1; flex-grow:1;">
                         <option value="">-- Wählen --</option>
                         <option value="schlecht">schlecht</option>
                         <option value="gut">gut</option>
@@ -206,10 +250,10 @@
                         <option value="sehr schlecht">sehr schlecht</option>
                     </select>
                 </div>
-                <div class="puzzle-row" data-answer="nicht so gut" style="display:flex; align-items:center; gap:1rem; background:white; padding:0.75rem; border-radius:6px;">
+                <div class="puzzle-row" data-answer="nicht so gut" style="display:flex; align-items:center; gap:1rem; background:white; padding:0.75rem; border-radius:8px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
                     <span style="font-size: 1.5rem;">😐</span>
-                    <div style="background:#cbd5e1; padding:0.5rem 1rem; border-radius:4px; font-weight:bold;">Puzzleteil</div>
-                    <select class="puzzle-select" style="padding:0.5rem; border-radius:4px; border:1px solid #ccc;">
+                    <div style="background:#f1f5f9; padding:0.5rem 1rem; border-radius:6px; font-weight:bold;">Puzzleteil</div>
+                    <select class="puzzle-select" style="padding:0.5rem; border-radius:6px; border:1px solid #cbd5e1; flex-grow:1;">
                         <option value="">-- Wählen --</option>
                         <option value="schlecht">schlecht</option>
                         <option value="gut">gut</option>
@@ -218,10 +262,10 @@
                         <option value="sehr schlecht">sehr schlecht</option>
                     </select>
                 </div>
-                <div class="puzzle-row" data-answer="schlecht" style="display:flex; align-items:center; gap:1rem; background:white; padding:0.75rem; border-radius:6px;">
+                <div class="puzzle-row" data-answer="schlecht" style="display:flex; align-items:center; gap:1rem; background:white; padding:0.75rem; border-radius:8px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
                     <span style="font-size: 1.5rem;">🙁</span>
-                    <div style="background:#cbd5e1; padding:0.5rem 1rem; border-radius:4px; font-weight:bold;">Puzzleteil</div>
-                    <select class="puzzle-select" style="padding:0.5rem; border-radius:4px; border:1px solid #ccc;">
+                    <div style="background:#f1f5f9; padding:0.5rem 1rem; border-radius:6px; font-weight:bold;">Puzzleteil</div>
+                    <select class="puzzle-select" style="padding:0.5rem; border-radius:6px; border:1px solid #cbd5e1; flex-grow:1;">
                         <option value="">-- Wählen --</option>
                         <option value="schlecht">schlecht</option>
                         <option value="gut">gut</option>
@@ -230,10 +274,10 @@
                         <option value="sehr schlecht">sehr schlecht</option>
                     </select>
                 </div>
-                <div class="puzzle-row" data-answer="sehr schlecht" style="display:flex; align-items:center; gap:1rem; background:white; padding:0.75rem; border-radius:6px;">
+                <div class="puzzle-row" data-answer="sehr schlecht" style="display:flex; align-items:center; gap:1rem; background:white; padding:0.75rem; border-radius:8px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
                     <span style="font-size: 1.5rem;">😞</span>
-                    <div style="background:#cbd5e1; padding:0.5rem 1rem; border-radius:4px; font-weight:bold;">Puzzleteil</div>
-                    <select class="puzzle-select" style="padding:0.5rem; border-radius:4px; border:1px solid #ccc;">
+                    <div style="background:#f1f5f9; padding:0.5rem 1rem; border-radius:6px; font-weight:bold;">Puzzleteil</div>
+                    <select class="puzzle-select" style="padding:0.5rem; border-radius:6px; border:1px solid #cbd5e1; flex-grow:1;">
                         <option value="">-- Wählen --</option>
                         <option value="schlecht">schlecht</option>
                         <option value="gut">gut</option>
@@ -250,7 +294,7 @@
         <!-- VERBS SCREEN -->
         <section id="verbs-screen" class="screen">
             <button class="back-btn" onclick="goHome()">← Zurück zum Hauptmenü</button>
-            <h3>Wichtige Deutsche Verben (Konjugation)</h3>
+            <h3>Wichtige Deutsche Verben & Interaktives Matching</h3>
             <table>
                 <tr>
                     <th>Pronomen</th>
@@ -266,6 +310,17 @@
                 <tr><td><strong>ihr</strong></td><td>seid</td><td>habt</td><td>kommt</td><td>seht</td></tr>
                 <tr><td><strong>sie / Sie</strong></td><td>sind</td><td>haben</td><td>kommen</td><td>sehen</td></tr>
             </table>
+
+            <div style="background: white; padding: 1.5rem; border-radius: 12px; margin-top: 1.5rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+                <h4>Mini-Puzzle: Verb-Zuordnung</h4>
+                <p>Welche Form gehört zu "du" beim Verb <em>sein</em>?</p>
+                <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+                    <button class="option-btn" style="flex:1;" onclick="checkVerbPuzzle(false, this)">bin</button>
+                    <button class="option-btn" style="flex:1;" onclick="checkVerbPuzzle(true, this)">bist</button>
+                    <button class="option-btn" style="flex:1;" onclick="checkVerbPuzzle(false, this)">ist</button>
+                </div>
+                <div id="verb-feedback" class="hidden" style="margin-top: 1rem; padding: 0.75rem; border-radius: 6px; font-weight: bold; text-align: center;"></div>
+            </div>
         </section>
 
         <!-- FAMILY SCREEN -->
@@ -274,9 +329,9 @@
             <h3>Familie-Puzzle: Verwandtschaftsgrade ordnen</h3>
             <p>Ordnen Sie die passenden deutschen Begriffe zu:</p>
             <div style="display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1.5rem;" id="family-area">
-                <div class="family-row" data-answer="Großeltern" style="display:flex; align-items:center; gap:1rem; background:white; padding:0.75rem; border-radius:6px;">
-                    <span style="min-width: 140px; font-weight:bold;">Mutter & Vater der Eltern</span>
-                    <select class="family-select" style="padding:0.5rem; border-radius:4px; border:1px solid #ccc; flex-grow:1;">
+                <div class="family-row" data-answer="Großeltern" style="display:flex; align-items:center; gap:1rem; background:white; padding:0.75rem; border-radius:8px;">
+                    <span style="min-width: 160px; font-weight:bold;">Mutter & Vater der Eltern</span>
+                    <select class="family-select" style="padding:0.5rem; border-radius:6px; border:1px solid #cbd5e1; flex-grow:1;">
                         <option value="">-- Wählen --</option>
                         <option value="Großeltern">Großeltern</option>
                         <option value="Eltern">Eltern</option>
@@ -285,9 +340,9 @@
                         <option value="Schwester">Schwester</option>
                     </select>
                 </div>
-                <div class="family-row" data-answer="Eltern" style="display:flex; align-items:center; gap:1rem; background:white; padding:0.75rem; border-radius:6px;">
-                    <span style="min-width: 140px; font-weight:bold;">Mutter & Vater</span>
-                    <select class="family-select" style="padding:0.5rem; border-radius:4px; border:1px solid #ccc; flex-grow:1;">
+                <div class="family-row" data-answer="Eltern" style="display:flex; align-items:center; gap:1rem; background:white; padding:0.75rem; border-radius:8px;">
+                    <span style="min-width: 160px; font-weight:bold;">Mutter & Vater</span>
+                    <select class="family-select" style="padding:0.5rem; border-radius:6px; border:1px solid #cbd5e1; flex-grow:1;">
                         <option value="">-- Wählen --</option>
                         <option value="Großeltern">Großeltern</option>
                         <option value="Eltern">Eltern</option>
@@ -296,9 +351,9 @@
                         <option value="Schwester">Schwester</option>
                     </select>
                 </div>
-                <div class="family-row" data-answer="Geschwister" style="display:flex; align-items:center; gap:1rem; background:white; padding:0.75rem; border-radius:6px;">
-                    <span style="min-width: 140px; font-weight:bold;">Brüder und Schwestern</span>
-                    <select class="family-select" style="padding:0.5rem; border-radius:4px; border:1px solid #ccc; flex-grow:1;">
+                <div class="family-row" data-answer="Geschwister" style="display:flex; align-items:center; gap:1rem; background:white; padding:0.75rem; border-radius:8px;">
+                    <span style="min-width: 160px; font-weight:bold;">Brüder und Schwestern</span>
+                    <select class="family-select" style="padding:0.5rem; border-radius:6px; border:1px solid #cbd5e1; flex-grow:1;">
                         <option value="">-- Wählen --</option>
                         <option value="Großeltern">Großeltern</option>
                         <option value="Eltern">Eltern</option>
@@ -307,9 +362,9 @@
                         <option value="Schwester">Schwester</option>
                     </select>
                 </div>
-                <div class="family-row" data-answer="Bruder" style="display:flex; align-items:center; gap:1rem; background:white; padding:0.75rem; border-radius:6px;">
-                    <span style="min-width: 140px; font-weight:bold;">Männliches Geschwisterkind</span>
-                    <select class="family-select" style="padding:0.5rem; border-radius:4px; border:1px solid #ccc; flex-grow:1;">
+                <div class="family-row" data-answer="Bruder" style="display:flex; align-items:center; gap:1rem; background:white; padding:0.75rem; border-radius:8px;">
+                    <span style="min-width: 160px; font-weight:bold;">Männliches Geschwisterkind</span>
+                    <select class="family-select" style="padding:0.5rem; border-radius:6px; border:1px solid #cbd5e1; flex-grow:1;">
                         <option value="">-- Wählen --</option>
                         <option value="Großeltern">Großeltern</option>
                         <option value="Eltern">Eltern</option>
@@ -318,9 +373,9 @@
                         <option value="Schwester">Schwester</option>
                     </select>
                 </div>
-                <div class="family-row" data-answer="Schwester" style="display:flex; align-items:center; gap:1rem; background:white; padding:0.75rem; border-radius:6px;">
-                    <span style="min-width: 140px; font-weight:bold;">Weibliches Geschwisterkind</span>
-                    <select class="family-select" style="padding:0.5rem; border-radius:4px; border:1px solid #ccc; flex-grow:1;">
+                <div class="family-row" data-answer="Schwester" style="display:flex; align-items:center; gap:1rem; background:white; padding:0.75rem; border-radius:8px;">
+                    <span style="min-width: 160px; font-weight:bold;">Weibliches Geschwisterkind</span>
+                    <select class="family-select" style="padding:0.5rem; border-radius:6px; border:1px solid #cbd5e1; flex-grow:1;">
                         <option value="">-- Wählen --</option>
                         <option value="Großeltern">Großeltern</option>
                         <option value="Eltern">Eltern</option>
@@ -334,19 +389,39 @@
             <div id="family-feedback" class="hidden"></div>
         </section>
 
-        <!-- NUMBERS SCREEN -->
+        <!-- NUMBERS & CLOCK SCREEN -->
         <section id="numbers-screen" class="screen">
             <button class="back-btn" onclick="goHome()">← Zurück zum Hauptmenü</button>
-            <h3>Zahlen von 1 bis 500</h3>
-            <p>Hier finden Sie eine Übersicht wichtiger Zahlen und Abschnitte bis 500:</p>
-            <div style="background: white; padding: 1.25rem; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); margin-top: 1rem;">
-                <ul style="line-height: 1.8; margin: 0; padding-left: 1.2rem;">
+            <h3>Zahlen, Rechnen & Live-Uhrzeit (Stunden, Minuten, Sekunden)</h3>
+            
+            <!-- Fancy Clock Component -->
+            <div class="clock-container">
+                <div class="clock-german-text" id="clock-german-label">Es ist gerade...</div>
+                <div class="clock-display" id="live-clock">00:00:00</div>
+                <p style="color: #64748b; margin: 0;">Stunden (Stunden) • Minuten (Minuten) • Sekunden (Sekunden)</p>
+            </div>
+
+            <!-- Extended Numbers Reference & Interactive Puzzle -->
+            <div style="background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); margin-top: 1.5rem;">
+                <h4>Zahlenübersicht (1 bis 1000)</h4>
+                <ul style="line-height: 1.8; margin: 0 0 1.5rem 0; padding-left: 1.2rem; color: var(--text-main);">
                     <li><strong>1 - 12:</strong> eins, zwei, drei, vier, fünf, sechs, sieben, acht, neun, zehn, elf, zwölf</li>
-                    <li><strong>13 - 19:</strong> dreizehn, vierzehn, fünfzehn... (Zahl + zehn)</li>
+                    <li><strong>13 - 19:</strong> dreizehn, vierzehn, fünfzehn, sechzehn, siebzehn, achtzehn, neunzehn</li>
                     <li><strong>20, 30, 40...:</strong> zwanzig, dreißig, vierzig, fünfzig, sechzig, siebzig, achtzig, neunzig</li>
-                    <li><strong>Zusammengesetzte Zahlen (z.B. 45):</strong> fünfundvierzig (5 und 40)</li>
-                    <li><strong>100 / 200 / 500:</strong> (ein)hundert, zweihundert, fünfhundert</li>
+                    <li><strong>Zusammengesetzte Zahlen (z.B. 45):</strong> fünfundvierzig (wörtlich: 5 und 40)</li>
+                    <li><strong>Hunderter & Tausender:</strong> (ein)hundert, zweihundert, eintausend</li>
                 </ul>
+
+                <hr style="border: 0; border-top: 1px solid #e2e8f0; margin: 1.5rem 0;">
+
+                <h4>Zahlen-Puzzle: Ergänzen Sie das Wort</h4>
+                <p>Wie schreibt man die Zahl <strong>54</strong> auf Deutsch richtig?</p>
+                <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+                    <button class="option-btn" style="flex:1;" onclick="checkNumberPuzzle(false, this)">vierundfünfzig</button>
+                    <button class="option-btn" style="flex:1;" onclick="checkNumberPuzzle(true, this)">fünfundvierzig</button>
+                    <button class="option-btn" style="flex:1;" onclick="checkNumberPuzzle(false, this)">fünfzigvier</button>
+                </div>
+                <div id="number-puzzle-feedback" class="hidden" style="margin-top: 1rem; padding: 0.75rem; border-radius: 6px; font-weight: bold; text-align: center;"></div>
             </div>
         </section>
     </main>
@@ -358,42 +433,77 @@
                 steps: [
                     { prompt: "Person A: Guten Tag! Ich heiße Markus. Wie ist dein Name?", options: ["Hallo, ich heiße Sarah.", "Auf Wiedersehen.", "Mir geht es gut."], correct: 0 },
                     { prompt: "Person B: Freut mich, Markus! Woher kommst du ursprünglich?", options: ["Ich komme aus München.", "Guten Morgen.", "Tschüss!"], correct: 0 },
-                    { prompt: "Person A: Und wie gefällt es dir hier in der neuen Stadt?", options: ["Es ist wunderschön und sehr lebendig.", "Ich heiße Sarah.", "Aus München."], correct: 0 }
+                    { prompt: "Person A: Und wie gefällt es dir hier in der neuen Stadt?", options: ["Es ist wunderschön und sehr lebendig.", "Ich heiße Sarah.", "Aus München."], correct: 0 },
+                    { prompt: "Person B: Lebst du schon lange hier in dieser Gegend?", options: ["Ja, bereits seit fast drei Jahren.", "Ich trinke gerne Tee.", "Guten Abend."], correct: 0 },
+                    { prompt: "Person A: Das ist eine schöne Zeit. Arbeitest du oder studierst du?", options: ["Ich bin als Softwareentwickler tätig.", "Das Wetter ist kalt.", "Auf Wiederhören."], correct: 0 },
+                    { prompt: "Person B: Spannend! Welche Programmiersprachen nutzt du am meisten?", options: ["Hauptsächlich Python und JavaScript.", "Ich mag Äpfel.", "Nein, danke."], correct: 0 },
+                    { prompt: "Person A: Das passt perfekt zu meinen eigenen Interessen im Bereich Tech.", options: ["Freut mich zu hören! Vielleicht können wir mal zusammen coden.", "Der Bus fährt gleich.", "Zwei Kaffee bitte."], correct: 0 },
+                    { prompt: "Person B: Unbedingt! Lass uns bald Nummern austauschen. Schön dich kennengelernt zu haben!", options: ["Gleichfalls! Bis bald.", "Guten Morgen.", "Nein."], correct: 0 }
                 ]
             },
             {
                 id: 2, title: "Modul 2: Im Café bestellen & bezahlen (A1)", type: "choice",
                 steps: [
                     { prompt: "Kellner: Guten Tag! Haben Sie schon gewählt?", options: ["Ja, ich hätte gerne einen großen Milchkaffee.", "Ich heiße Markus.", "Auf Wiedersehen."], correct: 0 },
-                    { prompt: "Kellner: Gerne. Möchten Sie auch etwas Süßes dazu?", options: ["Ein Stück frischen Apfelkuchen bitte.", "Ich komme aus München.", "Mir geht es gut."], correct: 0 }
+                    { prompt: "Kellner: Gerne. Möchten Sie auch etwas Süßes dazu?", options: ["Ein Stück frischen Apfelkuchen bitte.", "Ich komme aus München.", "Mir geht es gut."], correct: 0 },
+                    { prompt: "Kellner: Sehr gute Wahl! Mit Sahne oder ohne?", options: ["Bitte mit einer Portion Schlagsahne.", "Ich wohne in Berlin.", "Der Tisch ist frei."], correct: 0 },
+                    { prompt: "Kellner: Kommt sofort. Darf es sonst noch etwas sein?", options: ["Ein Glas kaltes Leitungswasser wäre super.", "Nein, ich bin ein Auto.", "Guten Tag."], correct: 0 },
+                    { prompt: "Kellner: Hier ist Ihr Kaffee und der Kuchen. Guten Appetit!", options: ["Vielen herzlichen Dank!", "Auf Wiederhören.", "Ich suche den Bahnhof."], correct: 0 },
+                    { prompt: "Kunde (später): Zahlen bitte, wir möchten getrennt bezahlen.", options: ["Gerne, macht das zusammen 12,50 Euro?", "Ich bin Ingenieur.", "Das Wetter ist regnerisch."], correct: 0 },
+                    { prompt: "Kellner: Ja, genau. Bar oder mit Karte?", options: ["Ich zahle kontaktlos mit Karte, bitte.", "Ich komme aus Hamburg.", "Nein, danke."], correct: 0 },
+                    { prompt: "Kellner: Bitte hier auf das Lesegerät halten. Schönen Tag noch!",options: ["Danke gleichfalls, auf Wiedersehen!", "Guten Morgen.", "Zwei Kaffee."], correct: 0 }
                 ]
             },
             {
                 id: 3, title: "Modul 3: Nach dem Weg fragen (A2)", type: "choice",
                 steps: [
                     { prompt: "Passant: Entschuldigung, wissen Sie, wo die nächste U-Bahn-Station ist?", options: ["Gehen Sie geradeaus und dann die zweite Straße links.", "Ich heiße Sarah.", "Mir geht es gut."], correct: 0 },
-                    { prompt: "Passant: Ist das weit von hier zu Fuß?", options: ["Nein, höchstens fünf Minuten.", "Ja, ich komme aus München.", "Guten Tag."], correct: 0 }
+                    { prompt: "Passant: Ist das weit von hier zu Fuß?", options: ["Nein, höchstens fünf Minuten.", "Ja, ich komme aus München.", "Guten Tag."], correct: 0 },
+                    { prompt: "Passant: Muss ich danach noch einmal abbiegen?", options: ["Nach der Apotheke rechts in die Hauptstraße einbiegen.", "Ich trinke Kaffee.", "Auf Wiedersehen."], correct: 0 },
+                    { prompt: "Passant: Perfekt, ich suche nämlich das Stadtmuseum dort in der Nähe.",options: ["Das liegt direkt gegenüber dem Ausgang der Station.", "Ich bin müde.", "Nein."], correct: 0 },
+                    { prompt: "Passant: Großartig, vielen Dank für Ihre nette Hilfe!", options: ["Gern geschehen, einen schönen Tag noch!", "Guten Morgen.", "Ich heiße Thomas."], correct: 0 },
+                    { prompt: "Passant: Danke, Ihnen auch!", options: ["Auf Wiedersehen!", "Bitte sehr.", "Zwei Kaffee bitte."], correct: 0 },
+                    { prompt: "Zweiter Passant (ruft zu): Suchen Sie etwa die Linie U4?", options: ["Genau, fährt die hier regelmäßig?", "Ich mag Äpfel.", "Das Wetter ist schön."], correct: 0 },
+                    { prompt: "Zweiter Passant: Ja, alle fünf Minuten kommt eine Bahn. Viel Erfolg!", options: ["Super, danke für die Info!", "Nein.", "Tschüss."], correct: 0 }
                 ]
             },
             {
                 id: 4, title: "Modul 4: Im Supermarkt nach Produkten fragen (A1)", type: "choice",
                 steps: [
                     { prompt: "Kunde: Entschuldigung, wo finde ich frisches Gemüse?", options: ["Direkt am Eingang auf der linken Seite.", "Ich trinke gerne Wasser.", "Auf Wiedersehen."], correct: 0 },
-                    { prompt: "Kunde: Und gibt es hier auch biologisch angebauten Tomaten?", options: ["Ja, im Gang drei neben den Gurken.", "Guten Morgen.", "Nein, danke."], correct: 0 }
+                    { prompt: "Kunde: Und gibt es hier auch biologisch angebauten Tomaten?", options: ["Ja, im Gang drei neben den Gurken.", "Guten Morgen.", "Nein, danke."], correct: 0 },
+                    { prompt: "Kunde: Ausgezeichnet. Wo stehen denn die Milchprodukte?", options: ["Am Ende des Ganges auf der rechten Seite bei den Kühltruhen.", "Ich heiße Sarah.", "Der Zug ist pünktlich."], correct: 0 },
+                    { prompt: "Kunde: Haben Sie auch laktosefreie Vollmilch da?", options: ["Ja, im selben Regal im oberen Fach.", "Ich komme aus Köln.", "Guten Tag."], correct: 0 },
+                    { prompt: "Kunde: Perfekt, ich brauche außerdem noch Vollkornbrot.", options: ["Das liegt in der hauseigenen Bäckereiabteilung vorne.", "Mir geht es gut.", "Tschüss."], correct: 0 },
+                    { prompt: "Kunde: Findet man dort auch frische Brötchen?", options: ["Ja, die werden stündlich frisch gebacken.", "Ich bin müde.", "Nein."], correct: 0 },
+                    { prompt: "Kunde: Danke für die tolle Beratung.", options: ["Keine Ursache, sonst noch ein Anliegen?", "Auf Wiederhören.", "Zwei Kaffee."], correct: 0 },
+                    { prompt: "Kunde: Nein, das war alles. Ich gehe zur Kasse.", options: ["Schönen Tag noch beim Einkaufen!", "Guten Morgen.", "Hallo."], correct: 0 }
                 ]
             },
             {
                 id: 5, title: "Modul 5: Über Hobbies und Freizeit sprechen (A2)", type: "choice",
                 steps: [
                     { prompt: "Person A: Was machst du eigentlich am Wochenende am liebsten?", options: ["Ich gehe oft wandern und fotografiere die Natur.", "Ich komme aus Berlin.", "Mir geht es gut."], correct: 0 },
-                    { prompt: "Person B: Das klingt spannend! Machst du das ganz alleine?", options: ["Meistens gehe ich mit Freunden oder meiner Familie.", "Nein, das ist ein Bahnhof.", "Tschüss!"], correct: 0 }
+                    { prompt: "Person B: Das klingt spannend! Machst du das ganz alleine?", options: ["Meistens gehe ich mit Freunden oder meiner Familie.", "Nein, das ist ein Bahnhof.", "Tschüss!"], correct: 0 },
+                    { prompt: "Person A: Welche Regionen in den Bergen besuchst du am häufigsten?", options: ["Besonders gerne das Alpenvorland wegen der tollen Aussicht.", "Ich trinke Milch.", "Guten Tag."], correct: 0 },
+                    { prompt: "Person B: Fotografierst du dabei eher Landschaften oder Tiere?", options: ["Sowohl als auch, aber Landschaften faszinieren mich mehr.", "Ich heiße Anna.", "Nein, danke."], correct: 0 },
+                    { prompt: "Person A: Nutzt du dafür professionelle Spiegelreflexkameras?", options: ["Ja, mit verschiedenen Festbrennweiten-Objektiven.", "Das Wetter ist kalt.", "Auf Wiedersehen."], correct: 0 },
+                    { prompt: "Person B: Das erfordert sicher viel Geduld für das perfekte Licht.", options: ["Absolut, oft warte ich Stunden auf den perfekten Moment.", "Ich mag Kaffee.", "Zwei bitte."], correct: 0 },
+                    { prompt: "Person A: Bewundernswert! Stellst du deine Fotos auch online aus?", options: ["Ja, auf einer eigenen GitHub Pages Fotoseite.", "Ich wohne hier.", "Nein."], correct: 0 },
+                    { prompt: "Person B: Da muss ich unbedingt mal reinschauen!", options: ["Mach das, ich schicke dir den Link.", "Guten Morgen.", "Tschüss."], correct: 0 }
                 ]
             },
             {
                 id: 6, title: "Modul 6: Termine beim Arzt vereinbaren (A2)", type: "choice",
                 steps: [
                     { prompt: "Empfang: Praxis Dr. Schmidt, guten Tag.", options: ["Guten Tag, ich möchte gerne einen Termin vereinbaren.", "Ich heiße Anna.", "Ich suche den Bahnhof."], correct: 0 },
-                    { prompt: "Empfang: Sind Sie bereits Patient bei uns in der Praxis?", options: ["Nein, ich komme zum ersten Mal zu Ihnen.", "Zwei Kaffee, bitte.", "In Gang 3."], correct: 0 }
+                    { prompt: "Empfang: Sind Sie bereits Patient bei uns in der Praxis?", options: ["Nein, ich komme zum ersten Mal zu Ihnen.", "Zwei Kaffee, bitte.", "In Gang 3."], correct: 0 },
+                    { prompt: "Empfang: Verstehe. Wegen welcher Beschwerden rufen Sie an?", options: ["Ich habe seit zwei Tagen starke Kopfschmerzen und Fieber.", "Das Wetter ist schön.", "Auf Wiedersehen."], correct: 0 },
+                    { prompt: "Empfang: Könnten Sie direkt heute Nachmittag um 15:30 Uhr kommen?", options: ["Ja, das passt zeitlich hervorragend.", "Ich wohne in München.", "Nein, danke."], correct: 0 },
+                    { prompt: "Empfang: Bringen Sie bitte Ihre Krankenversichertenkarte mit.", options: ["Wird gemacht, liegt schon bereit.", "Ich trinke Wasser.", "Guten Morgen."], correct: 0 },
+                    { prompt: "Empfang: Müssen wir sonst noch etwas beachten?", options: ["Soll ich vorab nüchtern bleiben?", "Ich heiße Thomas.", "Tschüss."], correct: 0 },
+                    { prompt: "Empfang: Nein, das ist für diesen Termin nicht nötig.", options: ["Alles klar, vielen Dank für die schnelle Hilfe.", "Ich bin Ingenieur.", "Zwei Kaffee."], correct: 0 },
+                    { prompt: "Empfang: Gute Besserung bereits im Voraus. Bis nachher!", options: ["Auf Wiederhören!", "Guten Tag.", "Nein."], correct: 0 }
                 ]
             },
             {
@@ -403,28 +513,49 @@
                     "Ja, natürlich, setzen Sie sich bitte.",
                     "Vielen Dank. Ich heiße Thomas, und Sie?",
                     "Ich bin Maria. Studieren Sie hier an der Universität?",
-                    "Nein, ich arbeite schon seit zwei Jahren als Ingenieur."
+                    "Nein, ich arbeite schon seit zwei Jahren als Ingenieur.",
+                    "Das ist beeindruckend. In welcher Fachrichtung denn genau?",
+                    "Im Bereich der Automatisierungstechnik und Robotik.",
+                    "Faszinierend! Vielleicht können wir uns dazu später noch austauschen."
                 ]
             },
             {
                 id: 8, title: "Modul 8: Erweiterte Geschäftsreise & Hotelbuchung (A2-B1)", type: "choice",
                 steps: [
                     { prompt: "Rezeption: Grand Hotel, guten Tag. Was kann ich für Sie tun?", options: ["Guten Tag, ich habe eine Reservierung auf den Namen Wagner für drei Nächte.", "Wo ist die U-Bahn?", "Ich möchte einen Kaffee."], correct: 0 },
-                    { prompt: "Rezeption: Lassen Sie mich kurz nachschauen... Ah, Zimmer 402 mit Blick auf den Park, korrekt?", options: ["Genau, ist das Frühstück im Übernachtungspreis inbegriffen?", "Nein, ich mag kein Wasser.", "Auf Wiederhören."], correct: 0 }
+                    { prompt: "Rezeption: Lassen Sie mich kurz nachschauen... Ah, Zimmer 402 mit Blick auf den Park, korrekt?", options: ["Genau, ist das Frühstück im Übernachtungspreis inbegriffen?", "Nein, ich mag kein Wasser.", "Auf Wiederhören."], correct: 0 },
+                    { prompt: "Rezeption: Ja, das reichhaltige Frühstücksbuffet ist täglich von 6:30 bis 10 Uhr dabei.", options: ["Ausgezeichnet, gibt es im Zimmer auch Highspeed-WLAN?", options[1], options[2]], correct: 0 },
+                    { prompt: "Rezeption: Kostenloses WLAN steht im gesamten Hotelbereich zur Verfügung.", options: ["Perfekt, hier ist mein Personalausweis für den Check-in.", "Ich trinke Milch.", "Tschüss."], correct: 0 },
+                    { prompt: "Rezeption: Danke schön. Ihre Zimmerkarte ist gleichzeitig der Aufzugschlüssel.", options: ["Gibt es hier im Haus auch einen Fitnessbereich?", "Das Wetter ist kalt.", "Nein."], correct: 0 },
+                    { prompt: "Rezeption: Ja, im Erdgeschoss neben dem Wellnessbereich rund um die Uhr geöffnet.", options: ["Sehr gut, das werde ich sicherlich nutzen.", "Ich heiße Anna.", "Zwei Kaffee."], correct: 0 },
+                    { prompt: "Rezeption: Falls Sie sonst noch Wünsche haben, wählen Sie die 0 von Ihrem Zimmer.", options: ["Verstanden, vielen Dank für den freundlichen Empfang.", "Guten Morgen.", "Auf Wiedersehen."], correct: 0 },
+                    { prompt: "Rezeption: Sehr gerne, wir wünschen Ihnen einen angenehmen Aufenthalt!", options: ["Danke, ich freue mich auf die Tage hier.", "Tschüss.", "Nein."], correct: 0 }
                 ]
             },
             {
                 id: 9, title: "Modul 9: Technischer Support & IT-Probleme (B1)", type: "choice",
                 steps: [
                     { prompt: "Support: IT-Helpdesk, Müller am Apparat. Welches Problem liegt vor?", options: ["Guten Tag, mein Laptop verbindet sich nach dem heutigen Systemupdate nicht mehr mit dem Firmennetzwerk.", "Ich suche eine Jacke in Größe L.", "Mir geht es gut, danke."], correct: 0 },
-                    { prompt: "Support: Haben Sie bereits versucht, den VPN-Client neu zu starten oder den Router zu reinitialisieren?", options: ["Ja, beides mehrfach durchgeführt, aber die Authentifizierung schlägt mit einem Zeitüberschreitungsfehler fehl.", "Ich trinke gerne Kaffee mit Milch.", "Auf Wiedersehen."], correct: 0 }
+                    { prompt: "Support: Haben Sie bereits versucht, den VPN-Client neu zu starten oder den Router zu reinitialisieren?", options: ["Ja, beides mehrfach durchgeführt, aber die Authentifizierung schlägt mit einem Zeitüberschreitungsfehler fehl.", "Ich trinke gerne Kaffee mit Milch.", "Auf Wiedersehen."], correct: 0 },
+                    { prompt: "Support: Erhalten Sie dabei einen spezifischen Fehlercode auf dem Bildschirm?", options: ["Ja, der Code lautet ERR_CONNECTION_TIMED_OUT.", "Das Wetter ist sonnig.", "Ich heiße Sarah."], correct: 0 },
+                    { prompt: "Support: Das deutet auf ein Zertifikatsproblem im Gateway hin. Ich setze kurz Ihre Session zurück.", options: ["Soll ich solange den Rechner einmal komplett neu starten?", "Ich mag Äpfel.", "Nein, danke."], correct: 0 },
+                    { prompt: "Support: Ja, das wäre ideal. Bitte nach dem Neustart direkt wieder einwählen.", options: ["Wird erledigt, ich bin in zwei Minuten wieder da.", "Guten Morgen.", "Tschüss."], correct: 0 },
+                    { prompt: "Support (nach Neustart): Hören Sie mich wieder? Wie sieht der Status aus?", options: ["Verbindung steht wieder stabil, Authentifizierung war erfolgreich!", "Ich trinke Wasser.", "Auf Wiederhören."], correct: 0 },
+                    { prompt: "Support: Hervorragend! Lag tatsächlich am zwischengespeicherten Authentifizierungstoken.", options: ["Vielen Dank für die schnelle professionelle Hilfe.", "Das Auto ist rot.", "Nein."], correct: 0 },
+                    { prompt: "Support: Gerne doch, bei weiteren IT-Fragen einfach wieder melden. Schönen Arbeitstag!", options: ["Danke gleichfalls, tschüss!", "Guten Abend.", "Zwei Kaffee."], correct: 0 }
                 ]
             },
             {
                 id: 10, title: "Modul 10: Wissenschaftliches Kolloquium & Forschung (B1-B2)", type: "choice",
                 steps: [
                     { prompt: "Professor: Willkommen zum Seminar über formale Verifikation und Modellprüfung. Welchen Ansatz bevorzugen Sie?", options: ["Ich halte temporale Logik und symbolisches Model Checking für besonders effektiv bei der Fehlererkennung.", "Ich möchte gerne Äpfel kaufen.", "Der Zug fährt um 10 Uhr ab."], correct: 0 },
-                    { prompt: "Professor: Ein ambitionierter Ansatz. Wie gehen Sie mit dem Zustandsexplosionsproblem um?", options: ["Durch den Einsatz von BDD-basierten Datenstrukturen und Abstraktionstechniken lässt sich die Komplexität stark reduzieren.", "Das Wetter ist heute sehr schön.", "Zwei Kaffee bitte."], correct: 0 }
+                    { prompt: "Professor: Ein ambitionierter Ansatz. Wie gehen Sie mit dem Zustandsexplosionsproblem um?", options: ["Durch den Einsatz von BDD-basierten Datenstrukturen und Abstraktionstechniken lässt sich die Komplexität stark reduzieren.", "Das Wetter ist heute sehr schön.", "Zwei Kaffee bitte."], correct: 0 },
+                    { prompt: "Professor: Wie verhält sich das bei Systemen mit starker Nebenläufigkeit?", options: ["Hier empfiehlt sich die Anwendung von partieller Ordnungsreduktion.", "Ich trinke gerne Tee.", "Auf Wiedersehen."], correct: 0 },
+                    { prompt: "Professor: Eine exzellente Ergänzung. Haben Sie das in Ihrer Masterarbeit getestet?", options: ["Ja, an komplexen verteilten Protokollen mit verifizierten Modellen.", "Das Buch ist spannend.", "Guten Morgen."], correct: 0 },
+                    { prompt: "Professor: Wurden dabei kritische Deadlock-Zustände aufgedeckt?", options: ["Mehrere subtile Randfälle konnten erfolgreich mathematisch nachgewiesen werden.", "Ich gehe im Park spazieren.", "Nein, danke."], correct: 0 },
+                    { prompt: "Professor: Das unterstreicht die Praxistauglichkeit Ihrer formalen Methoden.", options: ["Vielen Dank, die formale Korrektheit stand im Mittelpunkt meiner Forschung.", "Das Auto fährt schnell.", "Tschüss."], correct: 0 },
+                    { prompt: "Professor: Welche Weiterentwicklung planen Sie für Ihre Doktorarbeit?", options: ["Ich möchte probabilistisches Model Checking für autonome Systeme integrieren.", "Ich koche gerne Suppe.", "Zwei Kaffee."], correct: 0 },
+                    { prompt: "Professor: Höchst vielversprechend! Viel Erfolg bei der weiteren Umsetzung.", options: ["Ich danke Ihnen vielmals für das inspirierende Gespräch.", "Auf Wiederhören.", "Nein."], correct: 0 }
                 ]
             }
         ];
@@ -523,7 +654,7 @@
             optionsArea.innerHTML = '';
             
             if (currentStepIndex >= currentDialogue.steps.length) {
-                promptArea.innerHTML = `<h3>🎉 Bravo! Modul abgeschlossen!</h3>`;
+                promptArea.innerHTML = `<h3>🎉 Bravo! Modul komplett mit 8 Schritten abgeschlossen!</h3>`;
                 return;
             }
 
@@ -641,6 +772,7 @@
             });
 
             const pf = document.getElementById('puzzle-feedback');
+            pf.style.display = "block";
             if (allCorrect) {
                 pf.textContent = "🎉 Richtig! Alle Puzzleteile passen perfekt.";
                 pf.className = "success";
@@ -676,6 +808,70 @@
                 ff.className = "error";
             }
         }
+
+        function checkVerbPuzzle(isCorrect, btn) {
+            const vf = document.getElementById('verb-feedback');
+            vf.style.display = "block";
+            if (isCorrect) {
+                btn.style.background = "#10b981";
+                btn.style.color = "white";
+                vf.textContent = "🎉 Richtig! 'du bist' ist korrekt.";
+                vf.className = "success";
+                score += 10;
+                scoreDisplay.textContent = score;
+            } else {
+                btn.style.background = "#ef4444";
+                btn.style.color = "white";
+                vf.textContent = "❌ Falsch. Versuche es noch einmal!";
+                vf.className = "error";
+            }
+        }
+
+        function checkNumberPuzzle(isCorrect, btn) {
+            const nf = document.getElementById('number-puzzle-feedback');
+            nf.style.display = "block";
+            if (isCorrect) {
+                btn.style.background = "#10b981";
+                btn.style.color = "white";
+                nf.textContent = "🎉 Ausgezeichnet! 54 heißt auf Deutsch 'fünfundvierzig'.";
+                nf.className = "success";
+                score += 15;
+                scoreDisplay.textContent = score;
+            } else {
+                btn.style.background = "#ef4444";
+                btn.style.color = "white";
+                nf.textContent = "❌ Das stimmt nicht ganz. Im Deutschen werden die Einer vor den Zehnern genannt (5 und 40)!";
+                nf.className = "error";
+            }
+        }
+
+        // Live Clock Script with hours, minutes, seconds & German phrase simulation
+        function updateClock() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            
+            const clockEl = document.getElementById('live-clock');
+            const labelEl = document.getElementById('clock-german-label');
+            
+            if (clockEl) {
+                clockEl.textContent = `${hours}:${minutes}:${seconds}`;
+            }
+            if (labelEl) {
+                let hNum = now.getHours();
+                let timeGreeting = "Es ist Tag";
+                if (hNum >= 5 && hNum < 11) timeGreeting = "Guten Morgen! Es ist";
+                else if (hNum >= 11 && hNum < 15) timeGreeting = "Mittagszeit! Es ist";
+                else if (hNum >= 15 && hNum < 18) timeGreeting = "Guten Nachmittag! Es ist";
+                else if (hNum >= 18 && hNum < 22) timeGreeting = "Guten Abend! Es ist";
+                else timeGreeting = "Gute Nacht! Es ist";
+                
+                labelEl.textContent = `${timeGreeting} Uhr (${hours} Stunden, ${minutes} Minuten, ${seconds} Sekunden)`;
+            }
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
     </script>
 </body>
 </html>
