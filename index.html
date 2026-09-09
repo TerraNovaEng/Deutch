@@ -28,6 +28,22 @@
             align-items: center;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
+        .score-panel {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        .reset-score-btn {
+            background: #ef4444;
+            color: white;
+            border: none;
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
+        .reset-score-btn:hover { background: #dc2626; }
         main {
             max-width: 900px;
             margin: 2rem auto;
@@ -152,7 +168,6 @@
             font-weight: 600;
         }
 
-        /* SVG Analogue Clock Styling */
         .analogue-face {
             width: 180px;
             height: 180px;
@@ -202,7 +217,10 @@
 <body>
     <header>
         <h1>🇩🇪 Deutsch Lernportal</h1>
-        <div id="score-board">Punkte: <span id="score">0</span></div>
+        <div class="score-panel">
+            <span>Punkte: <span id="score">0</span></span>
+            <button class="reset-score-btn" onclick="resetScore()">Punktestand zurücksetzen</button>
+        </div>
     </header>
 
     <main>
@@ -349,9 +367,9 @@
                 <h4>Mini-Puzzle: Verb-Zuordnung</h4>
                 <p>Welche Form gehört zu "du" beim Verb <em>sein</em>?</p>
                 <div style="display: flex; gap: 1rem; margin-top: 1rem;">
-                    <button class="option-btn" style="flex:1;" onclick="checkVerbPuzzle(false, this)">bin</button>
-                    <button class="option-btn" style="flex:1;" onclick="checkVerbPuzzle(true, this)">bist</button>
-                    <button class="option-btn" style="flex:1;" onclick="checkVerbPuzzle(false, this)">ist</button>
+                    <button class="option-btn verb-opt" style="flex:1;" onclick="checkVerbPuzzle(false, this)">bin</button>
+                    <button class="option-btn verb-opt" style="flex:1;" onclick="checkVerbPuzzle(true, this)">bist</button>
+                    <button class="option-btn verb-opt" style="flex:1;" onclick="checkVerbPuzzle(false, this)">ist</button>
                 </div>
                 <div id="verb-feedback" class="hidden" style="margin-top: 1rem; padding: 0.75rem; border-radius: 6px; font-weight: bold; text-align: center;"></div>
             </div>
@@ -428,11 +446,9 @@
             <button class="back-btn" onclick="goHome()">← Zurück zum Hauptmenü</button>
             <h3>Zahlen, Rechnen & Live-Uhrzeit (Analog & Digital)</h3>
             
-            <!-- Fancy Dual Clock Component (Analogue + Digital) -->
             <div class="clock-container">
                 <div class="clock-german-text" id="clock-german-label">Es ist gerade...</div>
                 
-                <!-- Animated Analogue Clock Face -->
                 <div class="analogue-face">
                     <div class="hand hour-hand" id="hour-hand"></div>
                     <div class="hand minute-hand" id="minute-hand"></div>
@@ -444,7 +460,6 @@
                 <p style="color: #64748b; margin: 0; font-size: 0.9rem;">Analoges Zifferblatt & digitale Sekundenanzeige</p>
             </div>
 
-            <!-- Mini Clock Matching Puzzle Component -->
             <div style="background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); margin-top: 1.5rem;">
                 <h4>Mini-Uhren Puzzle: Uhrzeit richtig zuordnen</h4>
                 <p>Ordnen Sie die digitale Uhrzeit der korrekten deutschen Redewendung zu:</p>
@@ -482,7 +497,6 @@
                 <div id="clock-puzzle-feedback" class="hidden" style="margin-top: 1rem; padding: 0.75rem; border-radius: 6px; font-weight: bold; text-align: center;"></div>
             </div>
 
-            <!-- Extended Numbers Reference & Interactive Puzzle -->
             <div style="background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); margin-top: 1.5rem;">
                 <h4>Zahlenübersicht (1 bis 1000)</h4>
                 <ul style="line-height: 1.8; margin: 0 0 1.5rem 0; padding-left: 1.2rem; color: var(--text-main);">
@@ -498,9 +512,9 @@
                 <h4>Zahlen-Puzzle: Ergänzen Sie das Wort</h4>
                 <p>Wie schreibt man die Zahl <strong>54</strong> auf Deutsch richtig?</p>
                 <div style="display: flex; gap: 1rem; margin-top: 1rem;">
-                    <button class="option-btn" style="flex:1;" onclick="checkNumberPuzzle(false, this)">vierundfünfzig</button>
-                    <button class="option-btn" style="flex:1;" onclick="checkNumberPuzzle(true, this)">fünfundvierzig</button>
-                    <button class="option-btn" style="flex:1;" onclick="checkNumberPuzzle(false, this)">fünfzigvier</button>
+                    <button class="option-btn num-opt" style="flex:1;" onclick="checkNumberPuzzle(false, this)">vierundfünfzig</button>
+                    <button class="option-btn num-opt" style="flex:1;" onclick="checkNumberPuzzle(true, this)">fünfundvierzig</button>
+                    <button class="option-btn num-opt" style="flex:1;" onclick="checkNumberPuzzle(false, this)">fünfzigvier</button>
                 </div>
                 <div id="number-puzzle-feedback" class="hidden" style="margin-top: 1rem; padding: 0.75rem; border-radius: 6px; font-weight: bold; text-align: center;"></div>
             </div>
@@ -581,7 +595,7 @@
                     { prompt: "Empfang: Sind Sie bereits Patient bei uns in der Praxis?", options: ["Nein, ich komme zum ersten Mal zu Ihnen.", "Zwei Kaffee, bitte.", "In Gang 3."], correct: 0 },
                     { prompt: "Empfang: Verstehe. Wegen welcher Beschwerden rufen Sie an?", options: ["Ich habe seit zwei Tagen starke Kopfschmerzen und Fieber.", "Das Wetter ist schön.", "Auf Wiedersehen."], correct: 0 },
                     { prompt: "Empfang: Könnten Sie direkt heute Nachmittag um 15:30 Uhr kommen?", options: ["Ja, das passt zeitlich hervorragend.", "Ich wohne in München.", "Nein, danke."], correct: 0 },
-                    { prompt: "Empfang: Bringen Sie bitte Ihre Krankenversichertenkarte mit.", options: ["Wird gemacht, liegt schon bereit.", "I drink water.", "Guten Morgen."], correct: 0 },
+                    { prompt: "Empfang: Bringen Sie bitte Ihre Krankenversichertenkarte mit.", options: ["Wird gemacht, liegt schon bereit.", "Ich trinke Wasser.", "Guten Morgen."], correct: 0 },
                     { prompt: "Empfang: Müssen wir sonst noch etwas beachten?", options: ["Soll ich vorab nüchtern bleiben?", "Ich heiße Thomas.", "Tschüss."], correct: 0 },
                     { prompt: "Empfang: Nein, das ist für diesen Termin nicht nötig.", options: ["Alles klar, vielen Dank für die schnelle Hilfe.", "Ich bin Ingenieur.", "Zwei Kaffee."], correct: 0 },
                     { prompt: "Empfang: Gute Besserung bereits im Voraus. Bis nachher!", options: ["Auf Wiederhören!", "Guten Tag.", "Nein."], correct: 0 }
@@ -643,7 +657,8 @@
 
         let currentDialogue = null;
         let currentStepIndex = 0;
-        let score = 0;
+        let score = parseInt(localStorage.getItem('deutsch_score')) || 0;
+        document.getElementById('score').textContent = score;
 
         const menuScreen = document.getElementById('menu-screen');
         const dialogueMenuScreen = document.getElementById('dialogue-menu-screen');
@@ -659,6 +674,18 @@
         const optionsArea = document.getElementById('options-area');
         const feedback = document.getElementById('feedback');
         const scoreDisplay = document.getElementById('score');
+
+        function updateScore(points) {
+            score += points;
+            scoreDisplay.textContent = score;
+            localStorage.setItem('deutsch_score', score);
+        }
+
+        function resetScore() {
+            score = 0;
+            scoreDisplay.textContent = score;
+            localStorage.removeItem('deutsch_score');
+        }
 
         function hideAllScreens() {
             menuScreen.classList.remove('active');
@@ -760,19 +787,20 @@
 
             if (isCorrect) {
                 btn.classList.add('correct');
-                feedback.textContent = "Richtig! Gut gemacht.";
+                feedback.textContent = "Richtig! Gut gemacht (+10 Punkte).";
                 feedback.className = "success";
-                score += 10;
-                scoreDisplay.textContent = score;
+                updateScore(10);
                 currentStepIndex++;
-                setTimeout(loadStep, 1500);
+                setTimeout(loadStep, 1200);
             } else {
                 btn.classList.add('wrong');
-                feedback.textContent = "Falsch. Versuch es noch einmal!";
+                feedback.textContent = "Falsch. Das Auswahlfeld wird gleich zurückgesetzt, versuche es noch einmal!";
                 feedback.className = "error";
                 setTimeout(() => {
-                    buttons.forEach(b => b.disabled = false);
-                    btn.classList.remove('wrong');
+                    buttons.forEach(b => {
+                        b.disabled = false;
+                        b.classList.remove('wrong');
+                    });
                     feedback.className = "hidden";
                 }, 1500);
             }
@@ -827,10 +855,9 @@
                 let isMatch = workingList.every((val, idx) => val === correctOrder[idx]);
                 
                 if (isMatch) {
-                    feedback.textContent = "🎉 Richtig! Perfekte Reihenfolge.";
+                    feedback.textContent = "🎉 Richtig! Perfekte Reihenfolge (+20 Punkte).";
                     feedback.className = "success";
-                    score += 20;
-                    scoreDisplay.textContent = score;
+                    updateScore(20);
                     submitBtn.disabled = true;
                 } else {
                     feedback.textContent = "❌ Noch nicht ganz richtig. Versuche es weiter mit den Pfeilen!";
@@ -855,12 +882,11 @@
             const pf = document.getElementById('puzzle-feedback');
             pf.style.display = "block";
             if (allCorrect) {
-                pf.textContent = "🎉 Richtig! Alle Puzzleteile passen perfekt.";
+                pf.textContent = "🎉 Richtig! Alle Puzzleteile passen perfekt (+20 Punkte).";
                 pf.className = "success";
-                score += 20;
-                scoreDisplay.textContent = score;
+                updateScore(20);
             } else {
-                pf.textContent = "❌ Da stimmt noch etwas nicht. Versuche es noch einmal!";
+                pf.textContent = "❌ Da stimmt noch etwas nicht. Versuchen Sie es erneut!";
                 pf.className = "error";
             }
         }
@@ -880,10 +906,9 @@
             const ff = document.getElementById('family-feedback');
             ff.style.display = "block";
             if (allCorrect) {
-                ff.textContent = "🎉 Richtig! Alle Familienmitglieder korrekt zugeordnet.";
+                ff.textContent = "🎉 Richtig! Alle Familienmitglieder korrekt zugeordnet (+20 Punkte).";
                 ff.className = "success";
-                score += 20;
-                scoreDisplay.textContent = score;
+                updateScore(20);
             } else {
                 ff.textContent = "❌ Einige Zuordnungen sind falsch. Bitte überprüfen!";
                 ff.className = "error";
@@ -893,36 +918,56 @@
         function checkVerbPuzzle(isCorrect, btn) {
             const vf = document.getElementById('verb-feedback');
             vf.style.display = "block";
+            const allBtns = document.querySelectorAll('.verb-opt');
+            allBtns.forEach(b => b.disabled = true);
+
             if (isCorrect) {
                 btn.style.background = "#10b981";
                 btn.style.color = "white";
-                vf.textContent = "🎉 Richtig! 'du bist' ist korrekt.";
+                vf.textContent = "🎉 Richtig! 'du bist' ist korrekt (+10 Punkte).";
                 vf.className = "success";
-                score += 10;
-                scoreDisplay.textContent = score;
+                updateScore(10);
             } else {
                 btn.style.background = "#ef4444";
                 btn.style.color = "white";
-                vf.textContent = "❌ Falsch. Versuche es noch einmal!";
+                vf.textContent = "❌ Falsch. Zurücksetzen in 2 Sekunden...";
                 vf.className = "error";
+                setTimeout(() => {
+                    allBtns.forEach(b => {
+                        b.disabled = false;
+                        b.style.background = "white";
+                        b.style.color = "var(--text-main)";
+                    });
+                    vf.className = "hidden";
+                }, 1500);
             }
         }
 
         function checkNumberPuzzle(isCorrect, btn) {
             const nf = document.getElementById('number-puzzle-feedback');
             nf.style.display = "block";
+            const allBtns = document.querySelectorAll('.num-opt');
+            allBtns.forEach(b => b.disabled = true);
+
             if (isCorrect) {
                 btn.style.background = "#10b981";
                 btn.style.color = "white";
-                nf.textContent = "🎉 Ausgezeichnet! 54 heißt auf Deutsch 'fünfundvierzig'.";
+                nf.textContent = "🎉 Ausgezeichnet! 54 heißt auf Deutsch 'fünfundvierzig' (+15 Punkte).";
                 nf.className = "success";
-                score += 15;
-                scoreDisplay.textContent = score;
+                updateScore(15);
             } else {
                 btn.style.background = "#ef4444";
                 btn.style.color = "white";
-                nf.textContent = "❌ Das stimmt nicht ganz. Im Deutschen werden die Einer vor den Zehnern genannt (5 und 40)!";
+                nf.textContent = "❌ Falsch. Zurücksetzen in 2 Sekunden...";
                 nf.className = "error";
+                setTimeout(() => {
+                    allBtns.forEach(b => {
+                        b.disabled = false;
+                        b.style.background = "white";
+                        b.style.color = "var(--text-main)";
+                    });
+                    nf.className = "hidden";
+                }, 1500);
             }
         }
 
@@ -941,12 +986,11 @@
             const cf = document.getElementById('clock-puzzle-feedback');
             cf.style.display = "block";
             if (allCorrect) {
-                cf.textContent = "🎉 Richtig! Alle Uhren wurden perfekt zugeordnet.";
+                cf.textContent = "🎉 Richtig! Alle Uhren wurden perfekt zugeordnet (+20 Punkte).";
                 cf.className = "success";
-                score += 20;
-                scoreDisplay.textContent = score;
+                updateScore(20);
             } else {
-                cf.textContent = "❌ Mindestens eine Uhrzeit ist falsch zugeordnet. Versuche es noch einmal!";
+                cf.textContent = "❌ Mindestens eine Uhrzeit ist falsch zugeordnet. Versuchen Sie es noch einmal!";
                 cf.className = "error";
             }
         }
@@ -978,7 +1022,6 @@
                 labelEl.textContent = `${timeGreeting} Uhr (${hoursStr} Stunden, ${minutesStr} Minuten, ${secondsStr} Sekunden)`;
             }
 
-            // Update Analogue Clock Hands Rotations
             const secondDeg = (seconds / 60) * 360;
             const minuteDeg = ((minutes + seconds / 60) / 60) * 360;
             const hourDeg = (((hours % 12) + minutes / 60) / 12) * 360;
