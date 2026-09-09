@@ -124,7 +124,6 @@
         th, td { padding: 1rem; border-bottom: 1px solid #e2e8f0; text-align: left; }
         th { background: var(--primary); color: white; }
 
-        /* Fancy Clock Styles */
         .clock-container {
             background: white;
             padding: 2rem;
@@ -148,20 +147,6 @@
             font-size: 1.25rem;
             color: var(--accent);
             font-weight: 600;
-        }
-
-        /* Fancy Interactive Matching / Puzzle Grid */
-        .puzzle-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-        .puzzle-box {
-            background: white;
-            padding: 1rem;
-            border-radius: 8px;
-            border: 2px solid #e2e8f0;
         }
     </style>
 </head>
@@ -449,9 +434,9 @@
                     { prompt: "Kellner: Sehr gute Wahl! Mit Sahne oder ohne?", options: ["Bitte mit einer Portion Schlagsahne.", "Ich wohne in Berlin.", "Der Tisch ist frei."], correct: 0 },
                     { prompt: "Kellner: Kommt sofort. Darf es sonst noch etwas sein?", options: ["Ein Glas kaltes Leitungswasser wäre super.", "Nein, ich bin ein Auto.", "Guten Tag."], correct: 0 },
                     { prompt: "Kellner: Hier ist Ihr Kaffee und der Kuchen. Guten Appetit!", options: ["Vielen herzlichen Dank!", "Auf Wiederhören.", "Ich suche den Bahnhof."], correct: 0 },
-                    { prompt: "Kunde (später): Zahlen bitte, wir möchten getrennt bezahlen.", options: ["Gerne, macht das zusammen 12,50 Euro?", "Ich bin Ingenieur.", "Das Wetter ist regnerisch."], correct: 0 },
+                    { prompt: "Kunde (später): Zahlen bitte, wir möchten getrennt bezahlen.", options: ["Gerne, macht das zusammen 12,50 Euro?", "I am an engineer.", "Das Wetter ist regnerisch."], correct: 0 },
                     { prompt: "Kellner: Ja, genau. Bar oder mit Karte?", options: ["Ich zahle kontaktlos mit Karte, bitte.", "Ich komme aus Hamburg.", "Nein, danke."], correct: 0 },
-                    { prompt: "Kellner: Bitte hier auf das Lesegerät halten. Schönen Tag noch!",options: ["Danke gleichfalls, auf Wiedersehen!", "Guten Morgen.", "Zwei Kaffee."], correct: 0 }
+                    { prompt: "Kellner: Bitte hier auf das Lesegerät halten. Schönen Tag noch!", options: ["Danke gleichfalls, auf Wiedersehen!", "Guten Morgen.", "Zwei Kaffee."], correct: 0 }
                 ]
             },
             {
@@ -460,7 +445,7 @@
                     { prompt: "Passant: Entschuldigung, wissen Sie, wo die nächste U-Bahn-Station ist?", options: ["Gehen Sie geradeaus und dann die zweite Straße links.", "Ich heiße Sarah.", "Mir geht es gut."], correct: 0 },
                     { prompt: "Passant: Ist das weit von hier zu Fuß?", options: ["Nein, höchstens fünf Minuten.", "Ja, ich komme aus München.", "Guten Tag."], correct: 0 },
                     { prompt: "Passant: Muss ich danach noch einmal abbiegen?", options: ["Nach der Apotheke rechts in die Hauptstraße einbiegen.", "Ich trinke Kaffee.", "Auf Wiedersehen."], correct: 0 },
-                    { prompt: "Passant: Perfekt, ich suche nämlich das Stadtmuseum dort in der Nähe.",options: ["Das liegt direkt gegenüber dem Ausgang der Station.", "Ich bin müde.", "Nein."], correct: 0 },
+                    { prompt: "Passant: Perfekt, ich suche nämlich das Stadtmuseum dort in der Nähe.", options: ["Das liegt direkt gegenüber dem Ausgang der Station.", "Ich bin müde.", "Nein."], correct: 0 },
                     { prompt: "Passant: Großartig, vielen Dank für Ihre nette Hilfe!", options: ["Gern geschehen, einen schönen Tag noch!", "Guten Morgen.", "Ich heiße Thomas."], correct: 0 },
                     { prompt: "Passant: Danke, Ihnen auch!", options: ["Auf Wiedersehen!", "Bitte sehr.", "Zwei Kaffee bitte."], correct: 0 },
                     { prompt: "Zweiter Passant (ruft zu): Suchen Sie etwa die Linie U4?", options: ["Genau, fährt die hier regelmäßig?", "Ich mag Äpfel.", "Das Wetter ist schön."], correct: 0 },
@@ -524,7 +509,7 @@
                 steps: [
                     { prompt: "Rezeption: Grand Hotel, guten Tag. Was kann ich für Sie tun?", options: ["Guten Tag, ich habe eine Reservierung auf den Namen Wagner für drei Nächte.", "Wo ist die U-Bahn?", "Ich möchte einen Kaffee."], correct: 0 },
                     { prompt: "Rezeption: Lassen Sie mich kurz nachschauen... Ah, Zimmer 402 mit Blick auf den Park, korrekt?", options: ["Genau, ist das Frühstück im Übernachtungspreis inbegriffen?", "Nein, ich mag kein Wasser.", "Auf Wiederhören."], correct: 0 },
-                    { prompt: "Rezeption: Ja, das reichhaltige Frühstücksbuffet ist täglich von 6:30 bis 10 Uhr dabei.", options: ["Ausgezeichnet, gibt es im Zimmer auch Highspeed-WLAN?", options[1], options[2]], correct: 0 },
+                    { prompt: "Rezeption: Ja, das reichhaltige Frühstücksbuffet ist täglich von 6:30 bis 10 Uhr dabei.", options: ["Ausgezeichnet, gibt es im Zimmer auch Highspeed-WLAN?", "Ich trinke Tee.", "Tschüss."], correct: 0 },
                     { prompt: "Rezeption: Kostenloses WLAN steht im gesamten Hotelbereich zur Verfügung.", options: ["Perfekt, hier ist mein Personalausweis für den Check-in.", "Ich trinke Milch.", "Tschüss."], correct: 0 },
                     { prompt: "Rezeption: Danke schön. Ihre Zimmerkarte ist gleichzeitig der Aufzugschlüssel.", options: ["Gibt es hier im Haus auch einen Fitnessbereich?", "Das Wetter ist kalt.", "Nein."], correct: 0 },
                     { prompt: "Rezeption: Ja, im Erdgeschoss neben dem Wellnessbereich rund um die Uhr geöffnet.", options: ["Sehr gut, das werde ich sicherlich nutzen.", "Ich heiße Anna.", "Zwei Kaffee."], correct: 0 },
@@ -554,7 +539,7 @@
                     { prompt: "Professor: Eine exzellente Ergänzung. Haben Sie das in Ihrer Masterarbeit getestet?", options: ["Ja, an komplexen verteilten Protokollen mit verifizierten Modellen.", "Das Buch ist spannend.", "Guten Morgen."], correct: 0 },
                     { prompt: "Professor: Wurden dabei kritische Deadlock-Zustände aufgedeckt?", options: ["Mehrere subtile Randfälle konnten erfolgreich mathematisch nachgewiesen werden.", "Ich gehe im Park spazieren.", "Nein, danke."], correct: 0 },
                     { prompt: "Professor: Das unterstreicht die Praxistauglichkeit Ihrer formalen Methoden.", options: ["Vielen Dank, die formale Korrektheit stand im Mittelpunkt meiner Forschung.", "Das Auto fährt schnell.", "Tschüss."], correct: 0 },
-                    { prompt: "Professor: Welche Weiterentwicklung planen Sie für Ihre Doktorarbeit?", options: ["Ich möchte probabilistisches Model Checking für autonome Systeme integrieren.", "Ich koche gerne Suppe.", "Zwei Kaffee."], correct: 0 },
+                    { prompt: "Professor: Welche Weiterentwicklung planen Sie für Ihre Doktorarbeit?", options: ["Ich möchte probabilistisches Model Checking für autonome Systeme integrieren.", "I koche gerne Suppe.", "Zwei Kaffee."], correct: 0 },
                     { prompt: "Professor: Höchst vielversprechend! Viel Erfolg bei der weiteren Umsetzung.", options: ["Ich danke Ihnen vielmals für das inspirierende Gespräch.", "Auf Wiederhören.", "Nein."], correct: 0 }
                 ]
             }
@@ -845,7 +830,6 @@
             }
         }
 
-        // Live Clock Script with hours, minutes, seconds & German phrase simulation
         function updateClock() {
             const now = new Date();
             const hours = String(now.getHours()).padStart(2, '0');
