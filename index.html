@@ -621,7 +621,7 @@
                     { prompt: "Support: IT-Helpdesk, Müller am Apparat. Welches Problem liegt vor?", options: ["Guten Tag, mein Laptop verbindet sich nach dem heutigen Systemupdate nicht mehr mit dem Firmennetzwerk.", "Ich suche eine Jacke in Größe L.", "Mir geht es gut, danke."], correct: 0 },
                     { prompt: "Support: Haben Sie bereits versucht, den VPN-Client neu zu starten oder den Router zu reinitialisieren?", options: ["Ja, beides mehrfach durchgeführt, aber die Authentifizierung schlägt mit einem Zeitüberschreitungsfehler fehl.", "Ich trinke gerne Kaffee mit Milch.", "Auf Wiedersehen."], correct: 0 },
                     { prompt: "Support: Erhalten Sie dabei einen spezifischen Fehlercode auf dem Bildschirm?", options: ["Ja, der Code lautet ERR_CONNECTION_TIMED_OUT.", "Das Wetter ist sonnig.", "Ich heiße Sarah."], correct: 0 },
-                    { prompt: "Support: Das deutet auf ein Zertifikatsproblem im Gateway hin. Ich setze kurz Ihre Session zurück.", options: ["Soll ich solange den Rechner einmal komplett neu starten?", "I mag Äpfel.", "Nein, danke."], correct: 0 },
+                    { prompt: "Support: Das deutet auf ein Zertifikatsproblem im Gateway hin. Ich setze kurz Ihre Session zurück.", options: ["Soll ich solange den Rechner einmal komplett neu starten?", "Ich mag Äpfel.", "Nein, danke."], correct: 0 },
                     { prompt: "Support: Ja, das wäre ideal. Bitte nach dem Neustart direkt wieder einwählen.", options: ["Wird erledigt, ich bin in zwei Minuten wieder da.", "Guten Morgen.", "Tschüss."], correct: 0 },
                     { prompt: "Support (nach Neustart): Hören Sie mich wieder? Wie sieht der Status aus?", options: ["Verbindung steht wieder stabil, Authentifizierung war erfolgreich!", "Ich trinke Wasser.", "Auf Wiederhören."], correct: 0 },
                     { prompt: "Support: Hervorragend! Lag tatsächlich am zwischengespeicherten Authentifizierungstoken.", options: ["Vielen Dank für die schnelle professionelle Hilfe.", "Das Auto ist rot.", "Nein."], correct: 0 },
@@ -643,7 +643,7 @@
             }
         ];
 
-        // Diverse dataset of 600 verbs with unique sentence contexts
+        // Diverse dataset of context sentences with distinct verbs
         const contextVerbs = [
             { sentence: "Ich ________ jeden Tag frisches Brot in der Bäckerei.", correct: "kaufe", decoys: ["schlafe", "fliege"] },
             { sentence: "Wir ________ im Park eine große Runde um den See.", correct: "laufen", decoys: ["kosten", "kleben"] },
@@ -665,7 +665,6 @@
             { sentence: "Wir ________ die korrekten Berechnungen für das Projekt.", correct: "überprüfen", decoys: ["verschwinden", "kochen"] }
         ];
 
-        // Programmatically expand context verbs up to 600 items
         for(let i = 19; i <= 600; i++) {
             contextVerbs.push({
                 sentence: `Das Team ________ das technische Protokoll für Version ${i}.`,
@@ -729,6 +728,7 @@
 
         let currentNumberIndex = 0;
         let currentClockIndex = 0;
+        let currentMegaIndex = 0;
         let currentDialogue = null;
         let currentStepIndex = 0;
         let score = parseInt(localStorage.getItem('deutsch_score')) || 0;
@@ -816,8 +816,7 @@
         }
 
         function loadNextMegaVerb() {
-            const randomIndex = Math.floor(Math.random() * contextVerbs.length);
-            const item = contextVerbs[randomIndex];
+            const item = contextVerbs[currentMegaIndex % contextVerbs.length];
 
             document.getElementById('mega-prompt').innerHTML = `Ergänze den Satz:<br><strong style="color:var(--accent); font-size: 1.25rem;">${item.sentence}</strong>`;
             const container = document.getElementById('mega-options-container');
@@ -837,6 +836,7 @@
                         document.getElementById('mega-feedback').textContent = "🎉 Richtig! Ausgezeichnet (+10 Punkte).";
                         document.getElementById('mega-feedback').className = "success";
                         updateScore(10);
+                        currentMegaIndex++;
                         setTimeout(loadNextMegaVerb, 1200);
                     } else {
                         btn.classList.add('wrong');
