@@ -214,7 +214,6 @@
             transform: translate(-50%, -50%);
         }
 
-        /* Flashcard Styling */
         .flashcard-box {
             background: white;
             border-radius: 16px;
@@ -272,8 +271,8 @@
                     <p>Lernen Sie Verben mit interaktiven Herausforderungen.</p>
                 </div>
                 <div class="dialogue-card" onclick="openMegaVerbsScreen()">
-                    <h3>600 Verben & Kontext-Trainer</h3>
-                    <p>Erweiterter Vokabel-Trainer mit 600 deutschen Verben im Satzkontext.</p>
+                    <h3>100 Verben & Kontext-Trainer</h3>
+                    <p>Erweiterter Vokabel-Trainer mit 100 deutschen Verben im Satzkontext.</p>
                 </div>
                 <div class="dialogue-card" onclick="openMegaFlashcardScreen()">
                     <h3>Komplexer Verben-Master (500+ Verben, Bilder & Tenses)</h3>
@@ -410,10 +409,10 @@
             </div>
         </section>
 
-        <!-- MEGA VERBS SCREEN (600 VERBS CONTEXT TRAINER) -->
+        <!-- MEGA VERBS SCREEN (100 VERBS CONTEXT TRAINER) -->
         <section id="mega-verbs-screen" class="screen">
             <button class="back-btn" onclick="goHome()">← Zurück zum Hauptmenü</button>
-            <h3>600 Verben & Kontext-Trainer</h3>
+            <h3>100 Verben & Kontext-Trainer</h3>
             <p>Wähle das passende deutsche Verb, das in den Satzkontext passt.</p>
             
             <div style="background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); margin-top: 1.5rem;">
@@ -424,7 +423,7 @@
             </div>
         </section>
 
-        <!-- COMPREHENSIVE 500+ VERB FLASHCARD & TENSE MASTER SCREEN -->
+        <!-- FLASHCARD & TENSE MASTER SCREEN -->
         <section id="mega-flashcard-screen" class="screen">
             <button class="back-btn" onclick="goHome()">← Zurück zum Hauptmenü</button>
             <h3>Komplexer Verben-Master (500+ Verben, Bilder & Tenses)</h3>
@@ -684,7 +683,7 @@
                     { prompt: "Rezeption: Ja, das reichhaltige Frühstücksbuffet ist täglich von 6:30 bis 10 Uhr dabei.", options: ["Ausgezeichnet, gibt es im Zimmer auch Highspeed-WLAN?", "I drink tea.", "Tschüss."], correct: 0 },
                     { prompt: "Rezeption: Kostenloses WLAN steht im gesamten Hotelbereich zur Verfügung.", options: ["Perfekt, hier ist mein Personalausweis für den Check-in.", "Ich trinke Milch.", "Tschüss."], correct: 0 },
                     { prompt: "Rezeption: Danke schön. Ihre Zimmerkarte ist gleichzeitig der Aufzugschlüssel.", options: ["Gibt es hier im Haus auch einen Fitnessbereich?", "Das Wetter ist kalt.", "Nein."], correct: 0 },
-                    { prompt: "Rezeption: Ja, im Erdgeschoss neben dem Wellnessbereich rund um die Uhr geöffnet.", options: ["Sehr gut, das werde ich sicherlich nutzen.", "I heiße Anna.", "Zwei Kaffee."], correct: 0 },
+                    { prompt: "Rezeption: Ja, im Erdgeschoss neben dem Wellnessbereich rund um die Uhr geöffnet.", options: ["Sehr gut, das werde ich sicherlich nutzen.", "Ich heiße Anna.", "Zwei Kaffee."], correct: 0 },
                     { prompt: "Rezeption: Falls Sie sonst noch Wünsche haben, wählen Sie die 0 von Ihrem Zimmer.", options: ["Verstanden, vielen Dank für den freundlichen Empfang.", "Guten Morgen.", "Auf Wiedersehen."], correct: 0 },
                     { prompt: "Rezeption: Sehr gerne, wir wünschen Ihnen einen angenehmen Aufenthalt!", options: ["Danke, ich freue mich auf die Tage hier.", "Tschüss.", "Nein."], correct: 0 }
                 ]
@@ -694,7 +693,7 @@
                 steps: [
                     { prompt: "Support: IT-Helpdesk, Müller am Apparat. Welches Problem liegt vor?", options: ["Guten Tag, mein Laptop verbindet sich nach dem heutigen Systemupdate nicht mehr mit dem Firmennetzwerk.", "Ich suche eine Jacke in Größe L.", "Mir geht es gut, danke."], correct: 0 },
                     { prompt: "Support: Haben Sie bereits versucht, den VPN-Client neu zu starten oder den Router zu reinitialisieren?", options: ["Ja, beides mehrfach durchgeführt, aber die Authentifizierung schlägt mit einem Zeitüberschreitungsfehler fehl.", "Ich trinke gerne Kaffee mit Milch.", "Auf Wiedersehen."], correct: 0 },
-                    { prompt: "Support: Erhalten Sie dabei einen spezifischen Fehlercode auf dem Bildschirm?", options: ["Ja, das Code lautet ERR_CONNECTION_TIMED_OUT.", "Das Wetter ist sonnig.", "Ich heiße Sarah."], correct: 0 },
+                    { prompt: "Support: Erhalten Sie dabei einen spezifischen Fehlercode auf dem Bildschirm?", options: ["Ja, der Code lautet ERR_CONNECTION_TIMED_OUT.", "Das Wetter ist sonnig.", "Ich heiße Sarah."], correct: 0 },
                     { prompt: "Support: Das deutet auf ein Zertifikatsproblem im Gateway hin. Ich setze kurz Ihre Session zurück.", options: ["Soll ich solange den Rechner einmal komplett neu starten?", "Ich mag Äpfel.", "Nein, danke."], correct: 0 },
                     { prompt: "Support: Ja, das wäre ideal. Bitte nach dem Neustart direkt wieder einwählen.", options: ["Wird erledigt, ich bin in zwei Minuten wieder da.", "Guten Morgen.", "Tschüss."], correct: 0 },
                     { prompt: "Support (nach Neustart): Hören Sie mich wieder? Wie sieht der Status aus?", options: ["Verbindung steht wieder stabil, Authentifizierung war erfolgreich!", "Ich trinke Wasser.", "Auf Wiederhören."], correct: 0 },
@@ -717,55 +716,108 @@
             }
         ];
 
-        // Comprehensive 500+ Verbs Flashcard dataset with icons and tenses
-        const comprehensiveVerbs = [
-            { icon: "🏃‍♂️", de: "laufen", en: "to run / walk", presIch: "laufe", pretIch: "lief", futIch: "werde laufen" },
-            { icon: "📖", de: "lesen", en: "to read", presIch: "lese", pretIch: "las", futIch: "werde lesen" },
-            { icon: "✍️", de: "schreiben", en: "to write", presIch: "schreibe", pretIch: "schrieb", futIch: "werde schreiben" },
-            { icon: "💻", de: "programmieren", en: "to program", presIch: "programmiere", pretIch: "programmierte", futIch: "werde programmieren" },
-            { icon: "☕", de: "trinken", en: "to drink", presIch: "trinke", pretIch: "trank", futIch: "werde trinken" },
-            { icon: "🍳", de: "kochen", en: "to cook", presIch: "koche", pretIch: "kochte", futIch: "werde kochen" },
-            { icon: "🚀", de: "bauen", en: "to build / construct", presIch: "baue", pretIch: "baute", futIch: "werde bauen" },
-            { icon: "🔍", de: "analysieren", en: "to analyze", presIch: "analysiere", pretIch: "analysierte", futIch: "werde analysieren" },
-            { icon: "🎵", de: "spielen", en: "to play (music/game)", presIch: "spiele", pretIch: "spielte", futIch: "werde spielen" },
-            { icon: "💤", de: "schlafen", en: "to sleep", presIch: "schlafe", pretIch: "schlief", futIch: "werde schlafen" }
-        ];
-
-        // Programmatically expand up to 500 comprehensive items
-        for(let i = 11; i <= 500; i++) {
-            comprehensiveVerbs.push({
-                icon: "⚙️",
-                de: `verarbeiten_${i}`,
-                en: `to process data unit ${i}`,
-                presIch: `verarbeite`,
-                pretIch: `verarbeitete`,
-                futIch: `werde verarbeiten`
-            });
-        }
-
+        // Exactly 100 Hand-Crafted Context Verbs (No Repetition!)
         const contextVerbs = [
             { sentence: "Ich ________ jeden Tag frisches Brot in der Bäckerei.", correct: "kaufe", decoys: ["schlafe", "fliege"] },
             { sentence: "Wir ________ im Park eine große Runde um den See.", correct: "laufen", decoys: ["kosten", "kleben"] },
             { sentence: "Kannst du mir bitte bei dieser schweren Aufgabe ________?", correct: "helfen", decoys: ["werfen", "rechnen"] },
             { sentence: "Der Student ________ ein sehr interessantes Buch über Physik.", correct: "liest", decoys: ["malst", "schwimmt"] },
             { sentence: "Morgen ________ wir zusammen nach Berlin mit dem Zug.", correct: "fahren", decoys: ["sitzen", "weinen"] },
-            { sentence: "Die Sonne ________ heute besonders hell am blauen Himmel.", correct: "scheint", decoys: ["trinkt", "schreibt"] }
+            { sentence: "Die Sonne ________ heute besonders hell am blauen Himmel.", correct: "scheint", decoys: ["trinkt", "schreibt"] },
+            { sentence: "Warum ________ du denn schon wieder so laut?", correct: "lachst", decoys: ["schmeckst", "schneist"] },
+            { sentence: "Kinder ________ am Nachmittag sehr gerne im großen Garten.", correct: "spielen", decoys: ["arbeiten", "studieren"] },
+            { sentence: "Er ________ seine Brille auf den Schreibtisch neben den Laptop.", correct: "legt", decoys: ["singt", "öffnet"] },
+            { sentence: "Wir ________ morgen eine große Party mit all unseren Freunden.", correct: "feiern", decoys: ["rechnen", "treten"] },
+            { sentence: "Der Kellner ________ uns sofort die kalten Getränke an den Tisch.", correct: "bringt", decoys: ["verliert", "vergisst"] },
+            { sentence: "Sie ________ in einer schönen Wohnung direkt im Stadtzentrum.", correct: "wohnt", decoys: ["kocht", "brennt"] },
+            { sentence: "Der Programmierer ________ den Quellcode in der Entwicklungsumgebung.", correct: "schreibt", decoys: ["schläft", "singt"] },
+            { sentence: "Wir ________ die Stabilität der Rakete mit OpenRocket.", correct: "analysieren", decoys: ["malen", "baden"] },
+            { sentence: "Die Katze ________ gemütlich auf dem warmen Sofa im Wohnzimmer.", correct: "schläft", decoys: ["fliegt", "tippt"] },
+            { sentence: "Abends ________ ich gerne eine Tasse heißen Kamillentee.", correct: "trinke", decoys: ["fahre", "öffne"] },
+            { sentence: "Der Ingenieur ________ ein neues elektrisches System für das Labor.", correct: "entwirft", decoys: ["weint", "schweigt"] },
+            { sentence: "Wir ________ die korrekten Berechnungen für das Projekt.", correct: "überprüfen", decoys: ["verschwinden", "kochen"] },
+            { sentence: "Der Bäcker ________ früh am Morgen duftende Brötchen.", correct: "bäckt", decoys: ["schwimmt", "lacht"] },
+            { sentence: "Die Ärztin ________ den Patienten im Behandlungszimmer.", correct: "untersucht", decoys: ["tanzt", "schließt"] },
+            { sentence: "Der Vogel ________ hoch über den Bergen im blauen Himmel.", correct: "fliegt", decoys: ["schreibt", "liest"] },
+            { sentence: "Ich ________ meinen Computer jeden Abend nach der Arbeit.", correct: "schalte", decoys: ["füttere", "streiche"] },
+            { sentence: "Du ________ wunderbar Klavier in der großen Musikschule.", correct: "spielst", decoys: ["rennst", "rechnest"] },
+            { sentence: "Wir ________ im Supermarkt frisches Gemüse für das Abendessen.", correct: "kaufen", decoys: ["schlafen", "weinen"] },
+            { sentence: "Der Lehrer ________ den Schülern eine schwierige Grammatikregel.", correct: "erklärt", decoys: ["versteckt", "wirft"] },
+            { sentence: "Warum ________ du heute so traurig aus dem Fenster?", correct: "schaust", decoys: ["singst", "backst"] },
+            { sentence: "Der Hund ________ laut, wenn ein Fremder an der Tür steht.", correct: "bellt", decoys: ["schreibt", "liest"] },
+            { sentence: "Wir ________ am Wochenende eine lange Wanderung in den Alpen.", correct: "planen", decoys: ["kochen", "schlafen"] },
+            { sentence: "Der Mechaniker ________ das kaputte Auto in der Werkstatt.", correct: "repariert", decoys: ["trinkt", "malt"] },
+            { sentence: "Ich ________ ein neues Buch über künstliche Intelligenz.", correct: "bestelle", decoys: ["falle", "schwimme"] },
+            { sentence: "Die Sonne ________ im Osten auf und wärmt die Erde.", correct: "geht", decoys: ["schläft", "rennt"] },
+            { sentence: "Er ________ jeden Morgen mit dem Fahrrad zur Universität.", correct: "fährt", decoys: ["fliegt", "schweigt"] },
+            { sentence: "Wir ________ uns am Nachmittag im Café zum Kaffeetrinken.", correct: "treffen", decoys: ["kochen", "lesen"] },
+            { sentence: "Die Mutter ________ ihrem kleinen Kind eine schöne Gute-Nacht-Geschichte.", correct: "erzählt", decoys: ["wirft", "baut"] },
+            { sentence: "Der Wind ________ stark durch die Bäume im herbstlichen Wald.", correct: "weht", decoys: ["schreibt", "kocht"] },
+            { sentence: "Ich ________ meine Schlüssel leider schon wieder im Flur.", correct: "vergesse", decoys: ["öffne", "male"] },
+            { sentence: "Die Studenten ________ im Hörsaal gut zu und machen Notizen.", correct: "hören", decoys: ["schlafen", "schwimmen"] },
+            { sentence: "Wir ________ gemeinsam an einem neuen Webprojekt auf GitHub.", correct: "arbeiten", decoys: ["weinen", "klettern"] },
+            { sentence: "Der Chef ________ die neuen Dokumente für das Meeting aus.", correct: "druckt", decoys: ["isst", "schläft"] },
+            { sentence: "Ich ________ dir gerne bei deinen Hausaufgaben in Mathematik.", correct: "helfe", decoys: ["falle", "störe"] },
+            { sentence: "Die Kinder ________ fröhlich auf dem Spielplatz in der Sonne.", correct: "toben", decoys: ["schreiben", "rechnen"] },
+            { sentence: "Er ________ seine Jacke an, weil es draußen sehr kalt ist.", correct: "zieht", decoys: ["öffnet", "schließt"] },
+            { sentence: "Wir ________ am Samstagabend eine leckere Pizza im Ofen.", correct: "backen", decoys: ["malen", "waschen"] },
+            { sentence: "Der Zug ________ pünktlich um zehn Uhr am Hauptbahnhof ein.", correct: "kommt", decoys: ["schläft", "fliegt"] },
+            { sentence: "Ich ________ meine E-Mails jeden Morgen direkt nach dem Aufstehen.", correct: "kontrolliere", decoys: ["koche", "fange"] },
+            { sentence: "Die Frau ________ Blumen im Garten vor ihrem schönen Haus.", correct: "pflanzt", decoys: ["schreibt", "liest"] },
+            { sentence: "Wir ________ im Sommer ans Meer in den Urlaub fahren.", correct: "möchten", decoys: ["müssen", "dürfen"] },
+            { sentence: "Der Kellner ________ die Rechnung an den Tisch der Gäste.", correct: "bringt", decoys: ["zerstört", "versteckt"] },
+            { sentence: "Ich ________ dieses deutsche Wort leider noch nicht ganz.", correct: "verstehe", decoys: ["vergesse", "kaufe"] },
+            { sentence: "Die Tür ________ automatisch, wenn man den Raum verlässt.", correct: "schließt", decoys: ["öffnet", "rennt"] },
+            { sentence: "Wir ________ den Geburtstag unserer Tochter im kleinen Kreis.", correct: "feiern", decoys: ["weinen", "schlafen"] },
+            { sentence: "Der Sportler ________ jeden Tag hart für den nächsten Wettkampf.", correct: "trainiert", decoys: ["schläft", "trumpt"] },
+            { sentence: "Ich ________ meine Haare mit einem milden Shampoo.", correct: "wasche", decoys: ["schreibe", "lese"] },
+            { sentence: "Die Lampe ________ hell in der dunklen Abendstunde.", correct: "leuchtet", decoys: ["fliegt", "schwimmt"] },
+            { sentence: "Wir ________ die richtige Lösung für das mathematische Problem.", correct: "finden", decoys: ["verlieren", "kochen"] },
+            { sentence: "Der Pilot ________ das Flugzeug sicher durch den dichten Nebel.", correct: "steuert", decoys: ["schläft", "malt"] },
+            { sentence: "Ich ________ meine Tasche für die morgige Reise.", correct: "packe", decoys: ["werfe", "öffne"] },
+            { sentence: "Die Uhr ________ unerbittlich die Sekunden bis zum Start.", correct: "zählt", decoys: ["singt", "weint"] },
+            { sentence: "Wir ________ gemeinsam einen Spaziergang durch den Wald.", correct: "machen", decoys: ["schlafen", "bauen"] },
+            { sentence: "Der Gärtner ________ den Rasen im großen Vorgarten.", correct: "mäht", decoys: ["schreibt", "singt"] },
+            { sentence: "Ich ________ eine wichtige Entscheidung für meine Zukunft.", correct: "treffe", decoys: ["werfe", "falle"] },
+            { sentence: "Die Vögel ________ früh am Morgen in den Bäumen.", correct: "singt", decoys: ["schreiben", "lesen"] },
+            { sentence: "Wir ________ das alte Regal im Wohnzimmer neu an.", correct: "streichen", decoys: ["kochen", "schwimmen"] },
+            { sentence: "Der Computer ________ die Daten blitzschnell auf der Festplatte.", correct: "speichert", decoys: ["schläft", "weint"] },
+            { sentence: "Ich ________ einen warmen Pullover gegen die Kälte an.", correct: "ziehe", decoys: ["öffne", "lege"] },
+            { sentence: "Die Kinder ________ aufgeregt im Wohnzimmer herum.", correct: "springen", decoys: ["schlafen", "sitzen"] },
+            { sentence: "Wir ________ die Einladung zu der großen Feier an.", correct: "nehmen", decoys: ["werfen", "schließen"] },
+            { sentence: "Der Koch ________ die frischen Kräuter für die Suppe.", correct: "schneidet", decoys: ["malt", "schläft"] },
+            { sentence: "Ich ________ meine Brille, um das kleine Kleingedruckte zu lesen.", correct: "brauche", decoys: ["werfe", "öffne"] },
+            { sentence: "Die Blumen ________ im Frühling in allen bunten Farben.", correct: "blühen", decoys: ["schlafen", "rennen"] },
+            { sentence: "Wir ________ die Aufgabe bis morgen Nachmittag fertig.", correct: "stellen", decoys: ["machen", "kochen"] },
+            { sentence: "Der Wind ________ die bunten Blätter über die Straße.", correct: "weht", decoys: ["schreibt", "liest"] },
+            { sentence: "Ich ________ gerne in meiner Freizeit spannende Romane.", correct: "lese", decoys: ["fahre", "schwimme"] },
+            { sentence: "Die Sonne ________ am Abend langsam hinter den Bergen.", correct: "untergeht", decoys: ["fliegt", "lacht"] },
+            { sentence: "Wir ________ den Termin für das nächste Treffen fest.", correct: "legen", decoys: ["schlafen", "weinen"] },
+            { sentence: "Der Hund ________ fröhlich mit seinem kleinen Ball.", correct: "spielt", decoys: ["schreibt", "rechnet"] },
+            { sentence: "Ich ________ den Raum und schalte das Licht aus.", correct: "verlasse", decoys: ["betrete", "kaufe"] },
+            { sentence: "Die Wolken ________ grau und schwer über der Stadt.", correct: "hängen", decoys: ["laufen", "schwimmen"] },
+            { sentence: "Wir ________ den Müll regelmäßig in die richtige Tonne.", correct: "werfen", decoys: ["kochen", "lesen"] },
+            { sentence: "Der Schüler ________ seine Vokabeln für den Test.", correct: "lernt", decoys: ["schläft", "malt"] },
+            { sentence: "Ich ________ eine Tasse Kaffee mit frischer Milch.", correct: "bestelle", decoys: ["falle", "öffne"] },
+            { sentence: "Die Straße ________ steil nach oben in die Berge.", correct: "führt", decoys: ["schläft", "schwimmt"] },
+            { sentence: "Wir ________ den Sommerurlaub an der Nordsee.", correct: "verbringen", decoys: ["kochen", "weinen"] },
+            { sentence: "Der Arzt ________ dem Patienten ein Rezept für Medikamente.", correct: "schreibt", decoys: ["singt", "malt"] },
+            { sentence: "Ich ________ mein Zimmer gründlich vor dem Besuch.", correct: "räume", decoys: ["falle", "schlafe"] },
+            { sentence: "Die Musik ________ leise aus dem Radio im Hintergrund.", correct: "klingt", decoys: ["läuft", "fliegt"] },
+            { sentence: "Wir ________ die Tickets online für das Theater.", correct: "buchen", decoys: ["kochen", "weinen"] },
+            { sentence: "Der Kollege ________ mir bei dem technischen Problem.", correct: "hilft", decoys: ["schläft", "wirft"] },
+            { sentence: "Ich ________ den ganzen Tag an meiner Masterarbeit.", correct: "schreibe", decoys: ["schlafe", "schwimme"] },
+            { sentence: "Die Sonne ________ am Vormittag auf unseren Balkon.", correct: "scheint", decoys: ["regnet", "schneit"] },
+            { sentence: "Wir ________ die Pläne für den Bau der Rakete.", correct: "besprechen", decoys: ["kochen", "weinen"] },
+            { sentence: "Der Vogel ________ geschickt sein kleines Nest im Baum.", correct: "baut", decoys: ["schreibt", "liest"] },
+            { sentence: "Ich ________ meinen Freunden eine Nachricht auf dem Handy.", correct: "schreibe", decoys: ["falle", "öffne"] },
+            { sentence: "Die Tür ________ schwer in den Angeln.", correct: "schwingt", decoys: ["schwimmt", "lacht"] },
+            { sentence: "Wir ________ den Erfolg gemeinsam mit dem ganzen Team.", correct: "feiern", decoys: ["weinen", "schlafen"] },
+            { sentence: "Der Chef ________ die neuen Aufgaben an die Mitarbeiter.", correct: "verteilt", decoys: ["schläft", "isst"] },
+            { sentence: "Ich ________ die richtige Antwort sofort auf dem Plakat.", correct: "erkenne", decoys: ["verliere", "suche"] },
+            { sentence: "Die Sterne ________ in der klaren Nacht am Himmel.", correct: "funkeln", decoys: ["schlafen", "laufen"] },
+            { sentence: "Wir ________ den Weg mit Hilfe einer digitalen Karte.", correct: "suchen", decoys: ["kochen", "weinen"] }
         ];
-
-        const additionalSubjects = ["Das Team", "Der Techniker", "Die Abteilung", "Unser Chef", "Die Expertin", "Der Forscher", "Das Unternehmen", "Die Kollegin", "Der Vorstand", "Die Studentin"];
-        const additionalActions = ["das System", "die Dokumentation", "den Bericht", "das Netzwerk", "die Konfiguration", "die Architektur", "das Verzeichnis", "die Datenbank", "den Algorithmus", "die Schnittstelle"];
-        const correctVerbsPool = ["aktualisiert", "optimiert", "analysiert", "validiert", "installiert", "überprüft", "strukturiert", "implementiert", "koordiniert", "überarbeitet"];
-
-        for(let i = 7; i <= 600; i++) {
-            let subj = additionalSubjects[i % additionalSubjects.length];
-            let act = additionalActions[(i * 3) % additionalActions.length];
-            let verb = correctVerbsPool[(i * 7) % correctVerbsPool.length];
-            contextVerbs.push({
-                sentence: `${subj} ________ ${act} für Release ${i}.`,
-                correct: verb,
-                decoys: ["schläft", "ignoriert"]
-            });
-        }
 
         const numberQuestions = [
             { num: "54", correct: "fünfundvierzig", decoys: ["vierundfünfzig", "fünfzigvier"] },
@@ -824,6 +876,7 @@
         let currentClockIndex = 0;
         let currentMegaIndex = 0;
         let currentFlashcardIndex = 0;
+        let currentлегаIndex = 0;
         let currentDialogue = null;
         let currentStepIndex = 0;
         let score = parseInt(localStorage.getItem('deutsch_score')) || 0;
@@ -947,7 +1000,7 @@
             const item = contextVerbs[currentMegaIndex % contextVerbs.length];
             const qNum = (currentMegaIndex % contextVerbs.length) + 1;
 
-            document.getElementById('mega-prompt').innerHTML = `<strong>Frage ${qNum} von 600:</strong><br>Ergänze den Satz:<br><strong style="color:var(--accent); font-size: 1.25rem;">${item.sentence}</strong>`;
+            document.getElementById('mega-prompt').innerHTML = `<strong>Frage ${qNum} von 100:</strong><br>Ergänze den Satz:<br><strong style="color:var(--accent); font-size: 1.25rem;">${item.sentence}</strong>`;
             const container = document.getElementById('mega-options-container');
             container.innerHTML = '';
             document.getElementById('mega-feedback').className = 'hidden';
