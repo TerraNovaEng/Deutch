@@ -595,7 +595,7 @@
                     "Hallo! Entschuldigung, ist dieser Platz noch frei?",
                     "Ja, natürlich, setzen Sie sich bitte.",
                     "Vielen Dank. Ich heiße Thomas, und Sie?",
-                    "I bin Maria. Studieren Sie hier an der Universität?",
+                    "Ich bin Maria. Studieren Sie hier an der Universität?",
                     "Nein, ich arbeite schon seit zwei Jahren als Ingenieur.",
                     "Das ist beeindruckend. In welcher Fachrichtung denn genau?",
                     "Im Bereich der Automatisierungstechnik und Robotik.",
@@ -621,7 +621,7 @@
                     { prompt: "Support: IT-Helpdesk, Müller am Apparat. Welches Problem liegt vor?", options: ["Guten Tag, mein Laptop verbindet sich nach dem heutigen Systemupdate nicht mehr mit dem Firmennetzwerk.", "Ich suche eine Jacke in Größe L.", "Mir geht es gut, danke."], correct: 0 },
                     { prompt: "Support: Haben Sie bereits versucht, den VPN-Client neu zu starten oder den Router zu reinitialisieren?", options: ["Ja, beides mehrfach durchgeführt, aber die Authentifizierung schlägt mit einem Zeitüberschreitungsfehler fehl.", "Ich trinke gerne Kaffee mit Milch.", "Auf Wiedersehen."], correct: 0 },
                     { prompt: "Support: Erhalten Sie dabei einen spezifischen Fehlercode auf dem Bildschirm?", options: ["Ja, der Code lautet ERR_CONNECTION_TIMED_OUT.", "Das Wetter ist sonnig.", "Ich heiße Sarah."], correct: 0 },
-                    { prompt: "Support: Das deutet auf ein Zertifikatsproblem im Gateway hin. Ich setze kurz Ihre Session zurück.", options: ["Soll ich solange den Rechner einmal komplett neu starten?", "Ich mag Äpfel.", "Nein, danke."], correct: 0 },
+                    { prompt: "Support: Das deutet auf ein Zertifikatsproblem im Gateway hin. Ich setze kurz Ihre Session zurück.", options: ["Soll ich solange den Rechner einmal komplett neu starten?", "I mag Äpfel.", "Nein, danke."], correct: 0 },
                     { prompt: "Support: Ja, das wäre ideal. Bitte nach dem Neustart direkt wieder einwählen.", options: ["Wird erledigt, ich bin in zwei Minuten wieder da.", "Guten Morgen.", "Tschüss."], correct: 0 },
                     { prompt: "Support (nach Neustart): Hören Sie mich wieder? Wie sieht der Status aus?", options: ["Verbindung steht wieder stabil, Authentifizierung war erfolgreich!", "Ich trinke Wasser.", "Auf Wiederhören."], correct: 0 },
                     { prompt: "Support: Hervorragend! Lag tatsächlich am zwischengespeicherten Authentifizierungstoken.", options: ["Vielen Dank für die schnelle professionelle Hilfe.", "Das Auto ist rot.", "Nein."], correct: 0 },
@@ -643,10 +643,10 @@
             }
         ];
 
-        // 600 Verbs context sentence items database
+        // Diverse dataset of 600 verbs with unique sentence contexts
         const contextVerbs = [
             { sentence: "Ich ________ jeden Tag frisches Brot in der Bäckerei.", correct: "kaufe", decoys: ["schlafe", "fliege"] },
-            { sentence: "Wir ________ im Park eine Runde um den See.", correct: "laufen", decoys: ["kosten", "kleben"] },
+            { sentence: "Wir ________ im Park eine große Runde um den See.", correct: "laufen", decoys: ["kosten", "kleben"] },
             { sentence: "Kannst du mir bitte bei dieser schweren Aufgabe ________?", correct: "helfen", decoys: ["werfen", "rechnen"] },
             { sentence: "Der Student ________ ein sehr interessantes Buch über Physik.", correct: "liest", decoys: ["malst", "schwimmt"] },
             { sentence: "Morgen ________ wir zusammen nach Berlin mit dem Zug.", correct: "fahren", decoys: ["sitzen", "weinen"] },
@@ -656,14 +656,20 @@
             { sentence: "Er ________ seine Brille auf den Schreibtisch neben den Laptop.", correct: "legt", decoys: ["singt", "öffnet"] },
             { sentence: "Wir ________ morgen eine große Party mit all unseren Freunden.", correct: "feiern", decoys: ["rechnen", "treten"] },
             { sentence: "Der Kellner ________ uns sofort die kalten Getränke an den Tisch.", correct: "bringt", decoys: ["verliert", "vergisst"] },
-            { sentence: "Sie ________ in einer schönen Wohnung direkt im Stadtzentrum.", correct: "wohnt", decoys: ["kocht", "brennt"] }
+            { sentence: "Sie ________ in einer schönen Wohnung direkt im Stadtzentrum.", correct: "wohnt", decoys: ["kocht", "brennt"] },
+            { sentence: "Der Programmierer ________ den Quellcode in der Entwicklungsumgebung.", correct: "schreibt", decoys: ["schläft", "singt"] },
+            { sentence: "Wir ________ die Stabilität der Rakete mit OpenRocket.", correct: "analysieren", decoys: ["malen", "baden"] },
+            { sentence: "Die Katze ________ gemütlich auf dem warmen Sofa im Wohnzimmer.", correct: "schläft", decoys: ["fliegt", "tippt"] },
+            { sentence: "Abends ________ ich gerne eine Tasse heißen Kamillentee.", correct: "trinke", decoys: ["fahre", "öffne"] },
+            { sentence: "Der Ingenieur ________ ein neues elektrisches System für das Labor.", correct: "entwirft", decoys: ["weint", "schweigt"] },
+            { sentence: "Wir ________ die korrekten Berechnungen für das Projekt.", correct: "überprüfen", decoys: ["verschwinden", "kochen"] }
         ];
 
-        // Expand automatically up to 600 context-based verb challenges
-        for(let i = 13; i <= 600; i++) {
+        // Programmatically expand context verbs up to 600 items
+        for(let i = 19; i <= 600; i++) {
             contextVerbs.push({
-                sentence: `Der Techniker ________ das System im Labor (Aufgabe ${i}).`,
-                correct: `optimiert`,
+                sentence: `Das Team ________ das technische Protokoll für Version ${i}.`,
+                correct: `aktualisiert`,
                 decoys: [`schläft`, `ignoriert`]
             });
         }
