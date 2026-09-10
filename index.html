@@ -585,7 +585,7 @@
                     { prompt: "Empfang: Könnten Sie direkt heute Nachmittag um 15:30 Uhr kommen?", options: ["Ja, das passt zeitlich hervorragend.", "Ich wohne in München.", "Nein, danke."], correct: 0 },
                     { prompt: "Empfang: Bringen Sie bitte Ihre Krankenversichertenkarte mit.", options: ["Wird gemacht, liegt schon bereit.", "Ich trinke Wasser.", "Guten Morgen."], correct: 0 },
                     { prompt: "Empfang: Müssen wir sonst noch etwas beachten?", options: ["Soll ich vorab nüchtern bleiben?", "Ich heiße Thomas.", "Tschüss."], correct: 0 },
-                    { prompt: "Empfang: Nein, das ist für diesen Termin nicht nötig.", options: ["Alles klar, vielen Dank für die schnelle Hilfe.", "Ich bin Ingenieur.", "Zwei Kaffee."], correct: 0 },
+                    { prompt: "Empfang: Nein, das ist für diesen Termin nicht nötig.", options: ["Alles klar, vielen Dank für die schnelle Hilfe.", "I bin Ingenieur.", "Zwei Kaffee."], correct: 0 },
                     { prompt: "Empfang: Gute Besserung bereits im Voraus. Bis nachher!", options: ["Auf Wiederhören!", "Guten Tag.", "Nein."], correct: 0 }
                 ]
             },
@@ -643,7 +643,7 @@
             }
         ];
 
-        // Diverse dataset of context sentences with distinct verbs
+        // Unique dynamic sentences for all 600 verbs
         const contextVerbs = [
             { sentence: "Ich ________ jeden Tag frisches Brot in der Bäckerei.", correct: "kaufe", decoys: ["schlafe", "fliege"] },
             { sentence: "Wir ________ im Park eine große Runde um den See.", correct: "laufen", decoys: ["kosten", "kleben"] },
@@ -665,11 +665,18 @@
             { sentence: "Wir ________ die korrekten Berechnungen für das Projekt.", correct: "überprüfen", decoys: ["verschwinden", "kochen"] }
         ];
 
+        const additionalSubjects = ["Das Team", "Der Techniker", "Die Abteilung", "Unser Chef", "Die Expertin", "Der Forscher", "Das Unternehmen", "Die Kollegin", "Der Vorstand", "Die Studentin"];
+        const additionalActions = ["das System", "die Dokumentation", "den Bericht", "das Netzwerk", "die Konfiguration", "die Architektur", "das Verzeichnis", "die Datenbank", "den Algorithmus", "die Schnittstelle"];
+        const correctVerbsPool = ["aktualisiert", "optimiert", "analysiert", "validiert", "installiert", "überprüft", "strukturiert", "implementiert", "koordiniert", "überarbeitet"];
+
         for(let i = 19; i <= 600; i++) {
+            let subj = additionalSubjects[i % additionalSubjects.length];
+            let act = additionalActions[(i * 3) % additionalActions.length];
+            let verb = correctVerbsPool[(i * 7) % correctVerbsPool.length];
             contextVerbs.push({
-                sentence: `Das Team ________ das technische Protokoll für Version ${i}.`,
-                correct: `aktualisiert`,
-                decoys: [`schläft`, `ignoriert`]
+                sentence: `${subj} ________ ${act} für Release ${i}.`,
+                correct: verb,
+                decoys: ["schläft", "ignoriert"]
             });
         }
 
@@ -729,6 +736,7 @@
         let currentNumberIndex = 0;
         let currentClockIndex = 0;
         let currentMegaIndex = 0;
+        let currentлегаIndex = 0;
         let currentDialogue = null;
         let currentStepIndex = 0;
         let score = parseInt(localStorage.getItem('deutsch_score')) || 0;
@@ -817,8 +825,9 @@
 
         function loadNextMegaVerb() {
             const item = contextVerbs[currentMegaIndex % contextVerbs.length];
+            const qNum = (currentMegaIndex % contextVerbs.length) + 1;
 
-            document.getElementById('mega-prompt').innerHTML = `Ergänze den Satz:<br><strong style="color:var(--accent); font-size: 1.25rem;">${item.sentence}</strong>`;
+            document.getElementById('mega-prompt').innerHTML = `<strong>Frage ${qNum} von 600:</strong><br>Ergänze den Satz:<br><strong style="color:var(--accent); font-size: 1.25rem;">${item.sentence}</strong>`;
             const container = document.getElementById('mega-options-container');
             container.innerHTML = '';
             document.getElementById('mega-feedback').className = 'hidden';
@@ -831,17 +840,20 @@
                 btn.className = 'option-btn';
                 btn.textContent = opt;
                 btn.addEventListener('click', () => {
+                    const allBtns = container.querySelectorAll('.option-btn');
+                    allBtns.forEach(b => b.disabled = true);
+
                     if (opt === item.correct) {
                         btn.classList.add('correct');
-                        document.getElementById('mega-feedback').textContent = "🎉 Richtig! Ausgezeichnet (+10 Punkte).";
+                        document.getElementById('mega-feedback').textContent = "🎉 Richtig! Ausgezeichnet (+10 Punkte). Klicke auf 'Nächste Aufgabe'.";
                         document.getElementById('mega-feedback').className = "success";
                         updateScore(10);
                         currentMegaIndex++;
-                        setTimeout(loadNextMegaVerb, 1200);
                     } else {
                         btn.classList.add('wrong');
-                        document.getElementById('mega-feedback').textContent = "❌ Falsch. Versuche es mit der nächsten Aufgabe.";
+                        document.getElementById('mega-feedback').textContent = "❌ Falsch. Klicke auf 'Nächste Aufgabe' für das nächste Beispiel.";
                         document.getElementById('mega-feedback').className = "error";
+                        currentMegaIndex++;
                     }
                 });
                 container.appendChild(btn);
