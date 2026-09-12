@@ -829,35 +829,45 @@ for (let i = 0; i < 400; i++) {
     });
 }
 
-        const numberQuestions = [
-            { num: "54", correct: "fünfundvierzig", decoys: ["vierundfünfzig", "fünfzigvier"] },
-            { num: "21", correct: "einundzwanzig", decoys: ["zweiundzwanzig", "einzwanzig"] },
-            { num: "35", correct: "fünfunddreißig", decoys: ["dreiundfünfzig", "fünfzigunddrei"] },
-            { num: "72", correct: "zweiundsiebzig", decoys: ["siebenundzwanzig", "zweisiebzig"] },
-            { num: "88", correct: "achtundachtzig", decoys: ["achtzehnachtzig", "achtundacht"] },
-            { num: "14", correct: "vierzehn", decoys: ["zehnvier", "vierten"] },
-            { num: "19", correct: "neunzehn", decoys: ["zehnneun", "neunten"] },
-            { num: "43", correct: "dreiundvierzig", decoys: ["vierunddreißig", "dreiundvierzig"] },
-            { num: "65", correct: "fünfundsechzig", decoys: ["sechsundfünfzig", "fünfundsechzig"] },
-            { num: "99", correct: "neunundneunzig", decoys: ["neunzigneun", "neunundneun"] },
-            { num: "11", correct: "elf", decoys: ["einszehn", "zehneins"] },
-            { num: "12", correct: "zwölf", decoys: ["zweihten", "zehnzwei"] },
-            { num: "30", correct: "dreißig", decoys: ["dreizig", "dreißig"] },
-            { num: "50", correct: "fünfzig", decoys: ["fünfzig", "fünften"] },
-            { num: "100", correct: "hundert", decoys: ["einhundert", "tausend"] }
-        ];
+   const numberQuestions = [
+    { num: "54", correct: "vierundfünfzig", decoys: ["fünfundvierzig", "fünfzigvier"] },
+    { num: "21", correct: "einundzwanzig", decoys: ["zweiundzwanzig", "einzwanzig"] },
+    { num: "35", correct: "fünfunddreißig", decoys: ["dreiundfünfzig", "fünfzigunddrei"] },
+    { num: "72", correct: "zweiundsiebzig", decoys: ["siebenundzwanzig", "zweisiebzig"] },
+    { num: "88", correct: "achtundachtzig", decoys: ["achtzehnachtzig", "achtundacht"] },
+    { num: "14", correct: "vierzehn", decoys: ["zehnvier", "vierten"] },
+    { num: "19", correct: "neunzehn", decoys: ["zehnneun", "neunten"] },
+    { num: "43", correct: "dreiundvierzig", decoys: ["vierunddreißig", "dreiundvierzig"] },
+    { num: "65", correct: "fünfundsechzig", decoys: ["sechsundfünfzig", "fünfundsechzig"] },
+    { num: "99", correct: "neunundneunzig", decoys: ["neunzigneun", "neunundneun"] },
+    { num: "11", correct: "elf", decoys: ["einszehn", "zehneins"] },
+    { num: "12", correct: "zwölf", decoys: ["zweihten", "zehnzwei"] },
+    { num: "30", correct: "dreißig", decoys: ["dreizig", "dreißig"] },
+    { num: "50", correct: "fünfzig", decoys: ["fünfzig", "fünften"] },
+    { num: "100", correct: "hundert", decoys: ["einhundert", "tausend"] }
+];
 
-        for(let i=16; i<=45; i++) {
-            let tens = ["zwanzig", "dreißig", "vierzig", "fünfzig", "sechzig", "siebzig", "achtzig", "neunzig"];
-            let ones = ["ein", "zwei", "drei", "vier", "fünf", "sechs", "sieben", "acht", "neun"];
-            let tWord = tens[(i % 8)];
-            let oWord = ones[(i % 9)];
-            numberQuestions.push({
-                num: String(i + 20),
-                correct: oWord + "und" + tWord,
-                decoys: [tWord + "und" + oWord, oWord + tWord]
-            });
-        }
+const tensWords = ["", "", "zwanzig", "dreißig", "vierzig", "fünfzig", "sechzig", "siebzig", "achtzig", "neunzig"];
+const onesWords = ["", "ein", "zwei", "drei", "vier", "fünf", "sechs", "sieben", "acht", "neun"];
+
+// Programmatically generate compound numbers from 21 to 99 cleanly
+for (let n = 21; n <= 99; n++) {
+    if (n % 10 === 0) continue; // Skip clean tens (like 30, 40)
+    
+    let tDigit = Math.floor(n / 10);
+    let oDigit = n % 10;
+    
+    let tWord = tensWords[tDigit];
+    let oWord = (oDigit === 1) ? "ein" : onesWords[oDigit]; // Special case: "einund..."
+    
+    let correctStr = oWord + "und" + tWord;
+    
+    numberQuestions.push({
+        num: String(n),
+        correct: correctStr,
+        decoys: [tWord + "und" + oWord, oWord + tWord]
+    });
+}
 
         const clockQuestions = [
             { time: "01:30", correct: "halb zwei", decoys: ["viertel nach eins", "viertel vor zwei"] },
